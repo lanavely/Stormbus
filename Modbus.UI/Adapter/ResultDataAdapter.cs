@@ -1,3 +1,0 @@
-﻿namespace Stormbus.UI.Adapter
-{
-}
