@@ -77,7 +77,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Adapter\ResultDataAdapter.cs" />
     <Compile Include="Command\CommandData\CommandDataBase.cs" />
     <Compile Include="Command\CommandData\MultipleCoilCommandData.cs" />
     <Compile Include="Command\CommandData\MultipleRegisterCommandData.cs" />
@@ -204,9 +203,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ok.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

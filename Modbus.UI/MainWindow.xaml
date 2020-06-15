@@ -34,8 +34,6 @@
         </Grid.RowDefinitions>
         <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-        <!--<GridSplitter Grid.Column="3" ShowsPreview="False" Width="3"
-                      HorizontalAlignment="Center" VerticalAlignment="Stretch" />-->
         <StatusBar Grid.Row="1" Grid.ColumnSpan="5" Background="{Binding StatusBar.StatusBarColor}" />
         <DataGrid Grid.Column="0"
                   ItemsSource="{Binding ResultData.DisplayData}"

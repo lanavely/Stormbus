@@ -36,13 +36,13 @@ namespace Stormbus.UI.ViewModels
 
         #region Handlers
 
-        public void StartRead()
+        public void StartReadHandler()
         {
             WorkingState.CurrentState = WorkingStates.Work;
             ModbusClient.StartReadAsync();
         }
 
-        public void StopRead()
+        public void StopReadHandler()
         {
             WorkingState.CurrentState = WorkingStates.Stopped;
             ModbusClient.Stop();

@@ -35,10 +35,10 @@ namespace Stormbus.UI
             switch (StartStopButton.Tag)
             {
                 case @"Start":
-                    ViewModel?.StartRead();
+                    ViewModel?.StartReadHandler();
                     break;
                 case @"Stop":
-                    ViewModel.StopRead();
+                    ViewModel.StopReadHandler();
                     break;
             }
         }
