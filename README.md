@@ -1,1 +1,1 @@
-**Stormbus - modern modbus client**
+**Stormbus - modern modbus client.**
