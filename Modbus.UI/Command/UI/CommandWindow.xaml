@@ -1,0 +1,105 @@
+﻿<Window x:Class="Stormbus.UI.Command.UI.CommandWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:commandData="clr-namespace:Stormbus.UI.Command.CommandData"
+        mc:Ignorable="d" x:Name="ThisWindow" WindowStartupLocation="CenterOwner"
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+        Title="Command">
+    <Window.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="Margin" Value="5 0 7 0" />
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <DataTemplate DataType="{x:Type commandData:SingleCoilCommandData}">
+            <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" MinWidth="63" />
+                        <ColumnDefinition Width="Auto" MinWidth="63" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Address" Grid.Column="0" Grid.Row="0" Margin="5 0 0 0"
+                               TextAlignment="Center" />
+                    <TextBlock Text="Value" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" />
+                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding Address}"
+                             TextAlignment="Center" Margin="0 3 0 0" />
+                    <CheckBox Grid.Column="1" Grid.Row="1" IsChecked="{Binding Value}"
+                              Margin="0 3 0 0" />
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type commandData:SingleRegisterCommandData}">
+            <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" MinWidth="63" />
+                        <ColumnDefinition Width="Auto" MinWidth="63" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Address" Grid.Column="0" Grid.Row="0"
+                               TextAlignment="Center" />
+                    <TextBlock Text="Value" Grid.Column="1" Grid.Row="0" TextAlignment="Center" />
+                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding Address}"
+                             Margin="0 3 0 0" TextAlignment="Center" />
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Value}"
+                             Margin="0 3 0 0" TextAlignment="Center" />
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type commandData:MultipleCoilCommandData}">
+            <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" MinWidth="63" />
+                        <ColumnDefinition Width="Auto" MinWidth="63" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <TextBlock Text="Address" Grid.Column="0" Grid.Row="0" TextAlignment="Center" />
+                        <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
+                                 Text="{Binding Address}" />
+                        <TextBlock Text="Count" Grid.Column="0" Grid.Row="0" Margin="0 3 0 0" TextAlignment="Center" />
+                        <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
+                                 Text="{Binding Count}" />
+                    </StackPanel>
+                    <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding Value}" />
+                                    <TextBlock Text="{Binding Address}" />
+                                    <TextBlock Text="Coil " />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid Margin="5 0 5 10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ContentControl Grid.Column="0" Content="{Binding ElementName=ThisWindow, Path=CommandData}" />
+        <StackPanel Grid.Column="1">
+            <Button Click="ButtonBase_OnClick" Content="Send" Margin="10,17.3,0,0" IsDefault="True" MinWidth="80" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,188 @@
+﻿<Window x:Class="Stormbus.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ext="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:Stormbus.UI"
+        xmlns:converters="clr-namespace:Stormbus.UI.Converters"
+        xmlns:customcontrols="clr-namespace:Stormbus.UI.CustomUserControls"
+        mc:Ignorable="d" x:Name="Window" Closed="MainWindow_OnClosed"
+        Title="StormBus" Height="450" Width="800">
+    <Window.InputBindings>
+        <KeyBinding Gesture="F5" Command="{Binding ElementName=Window, Path=StartStopReadCommand}" />
+    </Window.InputBindings>
+    <Window.Resources>
+        <converters:StartStopConverter x:Key="StartStopConverter" />
+        <converters:IpAddressVisibilityConverter x:Key="IpAddressVisibilityConverter" />
+        <converters:SerialPortSettingsVisibilityConverter x:Key="SerialPortSettingsVisibilityConverter" />
+        <converters:BaudRateDisplayMemberConverter x:Key="BaudRateDisplayMemberConverter" />
+        <converters:RtuAsciiRadioButtonVisibilityConverter x:Key="RtuAsciiRadioButtonVisibilityConverter" />
+        <converters:DataTypeSelectedConverter x:Key="DataTypeSelectedConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="17" />
+        </Grid.RowDefinitions>
+        <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
+                      HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+        <!--<GridSplitter Grid.Column="3" ShowsPreview="False" Width="3"
+                      HorizontalAlignment="Center" VerticalAlignment="Stretch" />-->
+        <StatusBar Grid.Row="1" Grid.ColumnSpan="5" Background="{Binding StatusBar.StatusBarColor}" />
+        <DataGrid Grid.Column="0"
+                  ItemsSource="{Binding ResultData.DisplayData}"
+                  AutoGenerateColumns="False"
+                  HorizontalAlignment="Center"
+                  CanUserAddRows="False"
+                  CanUserSortColumns="False"
+                  MouseDoubleClick="DataGrid_OnPreviewMouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Address"
+                                    Binding="{Binding Address}"
+                                    Width="Auto"
+                                    IsReadOnly="True"
+                                    MinWidth="60" />
+                <DataGridTextColumn Header="Value"
+                                    Binding="{Binding DisplayValue}"
+                                    Width="Auto"
+                                    MinWidth="120"
+                                    IsReadOnly="True" />
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Data type">
+                        <MenuItem OverridesDefaultStyle="True">
+                            <MenuItem.Template>
+                                <ControlTemplate>
+                                    <customcontrols:DataTypeMenu Background="#f8f8f8" Margin="0 0 10 0"
+                                                                 Function="{Binding ConfigurationSettings.Function, Mode=TwoWay}"
+                                                                 DataType="{Binding ConfigurationSettings.DataType, Mode=TwoWay}"
+                                                                 NumberSystem="{Binding ConfigurationSettings.NumberSystem, Mode=TwoWay}"
+                                                                 BytesEndian="{Binding ConfigurationSettings.BytesEndian, Mode=TwoWay}" />
+                                </ControlTemplate>
+                            </MenuItem.Template>
+                        </MenuItem>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <TextBox x:Name="LogTextBox" Grid.Column="2" Grid.Row="0"
+                 TextWrapping="Wrap" IsReadOnly="True"
+                 VerticalScrollBarVisibility="Auto" />
+        <TabControl Grid.Column="4" Grid.Row="0" TabStripPlacement="Right" HorizontalAlignment="Stretch"
+                    DataContext="{Binding ConfigurationSettings}">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <ContentPresenter Content="{TemplateBinding Content}">
+                                    <ContentPresenter.LayoutTransform>
+                                        <RotateTransform Angle="90" />
+                                    </ContentPresenter.LayoutTransform>
+                                </ContentPresenter>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Padding" Value="3" />
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="General">
+                <StackPanel x:Name="ConfigurationStackPanel"
+                            Margin="0 0 4 0" Width="80">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="0 5 0 0" />
+                        </Style>
+                    </StackPanel.Resources>
+                    <Button
+                        Content="{Binding RelativeSource={RelativeSource FindAncestor, 
+                            AncestorType={x:Type Window}}, Path=DataContext.WorkingState.CurrentState, 
+                            Converter={StaticResource StartStopConverter}}"
+                        Tag="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
+                        Command="{Binding ElementName=Window, Path=StartStopReadCommand}" x:Name="StartStopButton" />
+                    <TextBlock Text="SlaveID:" />
+                    <TextBox Text="{Binding SlaveId}" />
+                    <TextBlock Text="Function:" />
+                    <ComboBox ItemsSource="{Binding FunctionTypes}"
+                              SelectedItem="{Binding Function}" HorizontalAlignment="Left"
+                              Width="80" />
+                    <TextBlock Text="Start address:" />
+                    <TextBox Text="{Binding StartAddress}" />
+                    <TextBlock Text="Count:" />
+                    <TextBox Text="{Binding Count}" />
+                    <TextBlock Text="Scan Rate:" />
+                    <TextBox Text="{Binding ScanRate}" />
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Network">
+                <StackPanel>
+                    <TextBlock Text="Connection:" />
+                    <ComboBox ItemsSource="{Binding ConnectionType.SupportedTypes}"
+                              SelectedValue="{Binding ConnectionType.CurrentType}" />
+                    <StackPanel
+                        Visibility="{Binding ConnectionType.CurrentType, Converter={StaticResource RtuAsciiRadioButtonVisibilityConverter}}">
+                        <TextBlock Text="Mode" />
+                        <DockPanel>
+                            <RadioButton Content="RTU" DockPanel.Dock="Left"
+                                         IsChecked="{Binding UseRtu, Mode=TwoWay}" />
+                            <RadioButton Content="ASCII" DockPanel.Dock="Right" Margin="6 0 0 0"
+                                         IsChecked="{Binding UseAscii, Mode=TwoWay}" />
+                        </DockPanel>
+                    </StackPanel>
+                    <StackPanel
+                        Visibility="{Binding ConnectionType.CurrentType, Converter={StaticResource IpAddressVisibilityConverter}}">
+                        <TextBlock Text="IP Address" />
+                        <customcontrols:IpTextBox Address="{Binding IpAddress}" />
+                        <TextBlock Text="Port" />
+                        <TextBox Text="{Binding IpPort}" />
+                    </StackPanel>
+                    <StackPanel
+                        Visibility="{Binding ConnectionType.CurrentType, Converter={StaticResource SerialPortSettingsVisibilityConverter}}">
+                        <TextBlock Text="Port" />
+                        <ComboBox ItemsSource="{Binding SerialPortNames}"
+                                  SelectedValue="{Binding SerialPort}" />
+                        <TextBlock Text="Baud Rate" />
+                        <ComboBox ItemsSource="{Binding BaudRate.SupportedBaudRates}"
+                                  SelectedValue="{Binding BaudRate.Current}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding}" />
+                                        <TextBlock Margin="3 0 0 0" Text="Baud" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="Data Bits" />
+                        <ComboBox ItemsSource="{Binding SupportedDataBits}"
+                                  SelectedValue="{Binding DataBits}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding}" />
+                                        <TextBlock Margin="3 0 0 0" Text="Data Bits" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="Parity" />
+                        <ComboBox ItemsSource="{Binding SupportedParities}"
+                                  SelectedValue="{Binding Parity}" />
+                        <TextBlock Text="Stop Bits" />
+                        <ComboBox ItemsSource="{Binding SupportedStopBits}"
+                                  SelectedValue="{Binding StopBits}" />
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
