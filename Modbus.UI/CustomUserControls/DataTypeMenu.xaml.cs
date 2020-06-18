@@ -67,12 +67,20 @@ namespace Stormbus.UI.CustomUserControls
                 if (radioButton.Tag is DataType dataType)
                 {
                     DataType = dataType;
+                    if (DataType != DataType.UShort)
+                    {
+                        NumberSystem = NumberSystem.Decimal;
+                    }
                     return;
                 }
 
                 if (radioButton.Tag is NumberSystem numberSystem)
                 {
                     NumberSystem = numberSystem;
+                    if (numberSystem != NumberSystem.Decimal)
+                    {
+                        DataType = DataType.UShort;
+                    }
                     return;
                 }
 

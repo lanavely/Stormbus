@@ -39,7 +39,7 @@
                          Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static containers:DataType.Double}, Mode=OneWay}" />
         </StackPanel>
-        <StackPanel IsEnabled="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource NumberSystemEnabledConverter}}">
+        <StackPanel>
             <Separator />
             <RadioButton x:Name="Binary" Content="Binary" Tag="{x:Static containers:NumberSystem.Binary}"
                          Checked="RadioButton_OnChecked"
