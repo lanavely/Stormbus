@@ -63,7 +63,7 @@ namespace Stormbus.UI.Converters
             var j = 0;
             for (var i = 0; i < input.Length; i++)
             {
-                var buffer = ParseUshortToBytes(input[input.Length - 1 - i], bytesEndian);
+                var buffer = ParseUshortToBytes(input[bytesEndian == EndianType.BigEndian? input.Length - 1 - i : i], bytesEndian);
                 bytes[j] = buffer[0];
                 bytes[j + 1] = buffer[1];
                 j += 2;

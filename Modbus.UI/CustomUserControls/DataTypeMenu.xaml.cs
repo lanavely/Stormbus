@@ -21,7 +21,7 @@ namespace Stormbus.UI.CustomUserControls
         {
             if (d is DataTypeMenu dataTypeMenu)
             {
-                dataTypeMenu.PropertyChanged.Invoke(dataTypeMenu, new PropertyChangedEventArgs(nameof(DataTypeLength)));
+                //dataTypeMenu.PropertyChanged.Invoke(dataTypeMenu, new PropertyChangedEventArgs(nameof(DataTypeLength))); TODO: implement endian settings later
             }
         }
 

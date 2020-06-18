@@ -52,7 +52,7 @@
                          Tag="{x:Static containers:NumberSystem.Hexadecimal}" Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=NumberSystem, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static containers:NumberSystem.Hexadecimal}, Mode=OneWay}" />
         </StackPanel>
-        <!--<StackPanel>
+        <StackPanel>
             <Separator />
             <RadioButton x:Name="BigEndian" Content="BigEndian" Tag="{x:Static containers:EndianType.BigEndian}"
                          Checked="RadioButton_OnChecked"
@@ -61,13 +61,7 @@
                          Tag="{x:Static containers:EndianType.LittleEndian}" Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=BytesEndian, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static containers:EndianType.LittleEndian}, Mode=OneWay}" />
         </StackPanel>
-        <StackPanel
-            Visibility="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource RegistersEndianVisibilityConverter}}">
-            <Separator />
-            <CheckBox Content="Reversed registers"
-                      IsChecked="{Binding ElementName=ThisControl, Path=ReversedRegisters}" />
-        </StackPanel>-->
-        <StackPanel>
+        <!--<StackPanel>
             <Separator/>
             <StackPanel Visibility="{Binding ElementName=ThisControl, Path=DataTypeLength, ConverterParameter=16, Converter={StaticResource EqualVisibilityConverter}}">
                 <RadioButton Content="12 Byte order"/>
@@ -85,6 +79,6 @@
                 <RadioButton Content="21 43 65 87 Byte order"/>
                 <RadioButton Content="87 65 43 21 Byte order"/>
             </StackPanel>
-        </StackPanel>
+        </StackPanel>-->
     </StackPanel>
 </UserControl>
