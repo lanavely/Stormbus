@@ -57,13 +57,13 @@ namespace Stormbus.UI.Converters
 
         private static byte[] ConvertToByteString(ushort[] input, EndianType registersEndian, EndianType bytesEndian)
         {
-            if (registersEndian == EndianType.LittleEndian) input = input.Reverse().ToArray();
+            //if (registersEndian == EndianType.LittleEndian) input = input.Reverse().ToArray();
 
             var bytes = new byte[input.Length * 2];
             var j = 0;
-            for (var i = 0; i < input.Length; i += 1)
+            for (var i = 0; i < input.Length; i++)
             {
-                var buffer = ParseUshortToBytes(input[0], bytesEndian);
+                var buffer = ParseUshortToBytes(input[input.Length - 1 - i], bytesEndian);
                 bytes[j] = buffer[0];
                 bytes[j + 1] = buffer[1];
                 j += 2;

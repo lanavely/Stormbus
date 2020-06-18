@@ -14,22 +14,9 @@
         <converters:RegistersEndianVisibilityConverter x:Key="RegistersEndianVisibilityConverter" />
         <converters:EqualsConverter x:Key="EqualsConverter" />
     </UserControl.Resources>
-    <StackPanel Background="#f8f8f8"
+    <StackPanel Background="#f0f0f0"
                 IsEnabled="{Binding ElementName=ThisControl, Path=Function, Converter={StaticResource DataTypeEnabledConverter}}">
-        <StackPanel
-            IsEnabled="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource NumberSystemEnabledConverter}}">
-            <RadioButton x:Name="Binary" Content="Binary" Tag="{x:Static containers:NumberSystem.Binary}"
-                         Checked="RadioButton_OnChecked"
-                         IsChecked="{Binding ElementName=ThisControl, Path=NumberSystem, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static containers:NumberSystem.Binary}, Mode=OneWay}" />
-            <RadioButton x:Name="Decimal" Content="Decimal" Tag="{x:Static containers:NumberSystem.Decimal}"
-                         Checked="RadioButton_OnChecked"
-                         IsChecked="{Binding ElementName=ThisControl, Path=NumberSystem, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static containers:NumberSystem.Decimal}, Mode=OneWay}" />
-            <RadioButton x:Name="Hexadecimal" Content="Hexadecimal"
-                         Tag="{x:Static containers:NumberSystem.Hexadecimal}" Checked="RadioButton_OnChecked"
-                         IsChecked="{Binding ElementName=ThisControl, Path=NumberSystem, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static containers:NumberSystem.Hexadecimal}, Mode=OneWay}" />
-        </StackPanel>
         <StackPanel>
-            <Separator />
             <RadioButton x:Name="Short" Content="Short" Tag="{x:Static containers:DataType.Short}"
                          Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static containers:DataType.Short}, Mode=OneWay}" />
@@ -51,6 +38,18 @@
             <RadioButton x:Name="Double" Content="Double" Tag="{x:Static containers:DataType.Double}"
                          Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static containers:DataType.Double}, Mode=OneWay}" />
+        </StackPanel>
+        <StackPanel IsEnabled="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource NumberSystemEnabledConverter}}">
+            <Separator />
+            <RadioButton x:Name="Binary" Content="Binary" Tag="{x:Static containers:NumberSystem.Binary}"
+                         Checked="RadioButton_OnChecked"
+                         IsChecked="{Binding ElementName=ThisControl, Path=NumberSystem, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static containers:NumberSystem.Binary}, Mode=OneWay}" />
+            <RadioButton x:Name="Decimal" Content="Decimal" Tag="{x:Static containers:NumberSystem.Decimal}"
+                         Checked="RadioButton_OnChecked"
+                         IsChecked="{Binding ElementName=ThisControl, Path=NumberSystem, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static containers:NumberSystem.Decimal}, Mode=OneWay}" />
+            <RadioButton x:Name="Hexadecimal" Content="Hexadecimal"
+                         Tag="{x:Static containers:NumberSystem.Hexadecimal}" Checked="RadioButton_OnChecked"
+                         IsChecked="{Binding ElementName=ThisControl, Path=NumberSystem, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static containers:NumberSystem.Hexadecimal}, Mode=OneWay}" />
         </StackPanel>
         <StackPanel>
             <Separator />

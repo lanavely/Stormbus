@@ -65,9 +65,23 @@ namespace Stormbus.UI.Containers
         public void DataTypeChanged()
         {
             if (_configurationSettings.Function == 1 || _configurationSettings.Function == 2)
+            {
+                if (_boolOriginData == null)
+                {
+                    return;
+                    //_boolOriginData = new bool[_configurationSettings.Count];
+                }
                 ApplyConfiguration(_boolOriginData);
+            }
             else
+            {
+                if (_registersOriginData == null)
+                {
+                    return;
+                    //_registersOriginData = new ushort[_configurationSettings.Count];
+                }
                 ApplyConfiguration(_registersOriginData);
+            }
         }
 
         public void UpdateData(IEnumerable<ushort> data)

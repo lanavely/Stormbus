@@ -36,6 +36,7 @@
                       HorizontalAlignment="Center" VerticalAlignment="Stretch" />
         <StatusBar Grid.Row="1" Grid.ColumnSpan="5" Background="{Binding StatusBar.StatusBarColor}" />
         <DataGrid Grid.Column="0"
+                  CanUserReorderColumns="False"
                   ItemsSource="{Binding ResultData.DisplayData}"
                   AutoGenerateColumns="False"
                   HorizontalAlignment="Center"

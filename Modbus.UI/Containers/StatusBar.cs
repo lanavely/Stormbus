@@ -11,12 +11,12 @@ namespace Stormbus.UI.Containers
 
         public void SetWorkingState()
         {
-            StatusBarColor = WorkingColor;
+            //StatusBarColor = WorkingColor;
         }
 
         public void SetStoppedState()
         {
-            StatusBarColor = StoppedColor;
+            //StatusBarColor = StoppedColor;
         }
     }
 }
