@@ -1,5 +1,9 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
+using PropertyChanged;
+using Stormbus.UI.Annotations;
 using Stormbus.UI.Containers;
 
 namespace Stormbus.UI.CustomUserControls
@@ -7,10 +11,19 @@ namespace Stormbus.UI.CustomUserControls
     /// <summary>
     ///     Interaction logic for DataTypeMenu.xaml
     /// </summary>
-    public partial class DataTypeMenu : UserControl
+    public partial class DataTypeMenu : INotifyPropertyChanged
     {
         public static readonly DependencyProperty DataTypeProperty = DependencyProperty.Register(
-            nameof(DataType), typeof(DataType), typeof(DataTypeMenu), new PropertyMetadata(default(DataType)));
+            nameof(DataType), typeof(DataType), typeof(DataTypeMenu), 
+            new FrameworkPropertyMetadata(default(DataType), propertyChangedCallback:DataTypePropertyChangedCallback));
+
+        private static void DataTypePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is DataTypeMenu dataTypeMenu)
+            {
+                dataTypeMenu.PropertyChanged.Invoke(dataTypeMenu, new PropertyChangedEventArgs(nameof(DataTypeLength)));
+            }
+        }
 
         public static readonly DependencyProperty BytesEndianProperty = DependencyProperty.Register(
             nameof(BytesEndian), typeof(EndianType), typeof(DataTypeMenu), new PropertyMetadata(default(EndianType)));
@@ -33,7 +46,10 @@ namespace Stormbus.UI.CustomUserControls
         public DataType DataType
         {
             get => (DataType) GetValue(DataTypeProperty);
-            set => SetValue(DataTypeProperty, value);
+            set
+            {
+                SetValue(DataTypeProperty, value);
+            }
         }
 
         public byte Function
@@ -58,6 +74,28 @@ namespace Stormbus.UI.CustomUserControls
         {
             get => (bool) GetValue(ReversedRegistersProperty);
             set => SetValue(ReversedRegistersProperty, value);
+        }
+
+        public int DataTypeLength
+        {
+            get
+            {
+                switch (DataType)
+                {
+                    case DataType.Short:
+                    case DataType.UShort:
+                        return 16;
+                    case DataType.Int:
+                    case DataType.UInt:
+                    case DataType.Float:
+                        return 32;
+                    case DataType.Long:
+                    case DataType.Double:
+                        return 64;
+                }
+
+                return -1;
+            }
         }
 
         private void RadioButton_OnChecked(object sender, RoutedEventArgs e)
@@ -87,5 +125,7 @@ namespace Stormbus.UI.CustomUserControls
                 if (radioButton.Tag is EndianType endian) BytesEndian = endian;
             }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

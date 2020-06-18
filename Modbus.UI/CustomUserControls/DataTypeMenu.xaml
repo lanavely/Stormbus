@@ -13,6 +13,7 @@
         <converters:NumberSystemEnabledConverter x:Key="NumberSystemEnabledConverter" />
         <converters:RegistersEndianVisibilityConverter x:Key="RegistersEndianVisibilityConverter" />
         <converters:EqualsConverter x:Key="EqualsConverter" />
+        <converters:EqualVisibilityConverter x:Key="EqualVisibilityConverter"/>
     </UserControl.Resources>
     <StackPanel Background="#f0f0f0"
                 IsEnabled="{Binding ElementName=ThisControl, Path=Function, Converter={StaticResource DataTypeEnabledConverter}}">
@@ -51,7 +52,7 @@
                          Tag="{x:Static containers:NumberSystem.Hexadecimal}" Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=NumberSystem, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static containers:NumberSystem.Hexadecimal}, Mode=OneWay}" />
         </StackPanel>
-        <StackPanel>
+        <!--<StackPanel>
             <Separator />
             <RadioButton x:Name="BigEndian" Content="BigEndian" Tag="{x:Static containers:EndianType.BigEndian}"
                          Checked="RadioButton_OnChecked"
@@ -65,6 +66,25 @@
             <Separator />
             <CheckBox Content="Reversed registers"
                       IsChecked="{Binding ElementName=ThisControl, Path=ReversedRegisters}" />
+        </StackPanel>-->
+        <StackPanel>
+            <Separator/>
+            <StackPanel Visibility="{Binding ElementName=ThisControl, Path=DataTypeLength, ConverterParameter=16, Converter={StaticResource EqualVisibilityConverter}}">
+                <RadioButton Content="12 Byte order"/>
+                <RadioButton Content="21 Byte order"/>
+            </StackPanel>
+            <StackPanel Visibility="{Binding ElementName=ThisControl, Path=DataTypeLength, ConverterParameter=32, Converter={StaticResource EqualVisibilityConverter}}">
+                <RadioButton Content="12 34 Byte order"/>
+                <RadioButton Content="34 12 Byte order"/>
+                <RadioButton Content="21 43 Byte order"/>
+                <RadioButton Content="43 21 Byte order"/>
+            </StackPanel>
+            <StackPanel Visibility="{Binding ElementName=ThisControl, Path=DataTypeLength, ConverterParameter=64, Converter={StaticResource EqualVisibilityConverter}}">
+                <RadioButton Content="12 34 56 78 Byte order"/>
+                <RadioButton Content="78 56 34 12 Byte order"/>
+                <RadioButton Content="21 43 65 87 Byte order"/>
+                <RadioButton Content="87 65 43 21 Byte order"/>
+            </StackPanel>
         </StackPanel>
     </StackPanel>
 </UserControl>

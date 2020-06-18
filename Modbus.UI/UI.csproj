@@ -87,6 +87,7 @@
     <Compile Include="Containers\NumberSystem.cs" />
     <Compile Include="Containers\ResultData.cs" />
     <Compile Include="Converters\EqualsConverter.cs" />
+    <Compile Include="Converters\EqualVisibilityConverter.cs" />
     <Compile Include="Converters\RegistersEndianVisibilityConverter.cs" />
     <Compile Include="Converters\DataTypeSelectedConverter.cs" />
     <Compile Include="Converters\DataTypeMenuItemEnabledConverter.cs" />
