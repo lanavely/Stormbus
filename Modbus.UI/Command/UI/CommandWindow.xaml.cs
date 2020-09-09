@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using NModbus;
-using Stormbus.UI.Command.CommandData;
-using Stormbus.UI.Configuration;
+using Stormbus.UI.Command.CommandModels;
+using Stormbus.UI.ViewModels;
 
 namespace Stormbus.UI.Command.UI
 {
@@ -11,46 +13,48 @@ namespace Stormbus.UI.Command.UI
     /// </summary>
     public partial class CommandWindow : Window
     {
-        public static readonly DependencyProperty CommandDataProperty = DependencyProperty.Register(
-            nameof(CommandData), typeof(CommandDataBase), typeof(CommandWindow),
-            new PropertyMetadata(default(CommandDataBase)));
+        public static readonly DependencyProperty CommandModelProperty = DependencyProperty.Register(
+            nameof(CommandModel), typeof(CommandModelBase), typeof(CommandWindow),
+            new PropertyMetadata(default(CommandModelBase)));
 
-        private readonly ConfigurationSettingsModel _configurationSettings;
+        private readonly ViewModel _viewModel;
 
-        public CommandWindow(List<ResultItemModel> items, ConfigurationSettingsModel configurationSettings)
+        public CommandWindow(List<ResultItemModel> selectedItems, ViewModel model)
         {
-            _configurationSettings = configurationSettings;
-            switch (configurationSettings.Function)
+            _viewModel = model;
+            var address = selectedItems.FirstOrDefault()?.Address ?? 0;
+            var count = Convert.ToUInt16(selectedItems.Count > 0 ? selectedItems.Count : 1);
+
+            switch (_viewModel.ConfigurationSettings.Function)
             {
                 case ModbusFunctionCodes.ReadCoils:
-                    if (items.Count == 1)
+                    if (selectedItems.Count == 1)
                     {
-                        //CommandData = new SingleCoilCommandData(items[0].Address, (bool)items[0].Value);
+                        CommandModel = new SingleCoilCommandModel(address, (bool)selectedItems.First().Value, _viewModel);
                     }
 
-                    if (items.Count > 1)
+                    if (selectedItems.Count > 1)
                     {
-                        //CommandData = new MultipleCoilCommandData(items[0].Address, (ushort)items[0].Value,
-                        //    (List<ResultItemModel>)((new List<ResultItemModel>(items)).Clone()));
+                        CommandModel = new MultipleCoilCommandModel(address, count, selectedItems, _viewModel);
                     }
 
                     break;
                 case ModbusFunctionCodes.ReadHoldingRegisters:
-                    //CommandData = new SingleRegisterCommandData(items[0].Address, (ushort)items[0].Value);
                     break;
             }
 
             InitializeComponent();
         }
 
-        public CommandDataBase CommandData
+        public CommandModelBase CommandModel
         {
-            get => (CommandDataBase) GetValue(CommandDataProperty);
-            set => SetValue(CommandDataProperty, value);
+            get => (CommandModelBase) GetValue(CommandModelProperty);
+            set => SetValue(CommandModelProperty, value);
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void SendButton_OnClick(object sender, RoutedEventArgs e)
         {
+            _viewModel.ModbusClient.ExecuteCommandAsync(CommandModel.GetCommandData());
             Close();
         }
     }

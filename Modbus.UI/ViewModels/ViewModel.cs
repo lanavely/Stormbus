@@ -7,6 +7,9 @@ using Stormbus.UI.Modbus;
 
 namespace Stormbus.UI.ViewModels
 {
+    /// <summary>
+    ///     Main model for window
+    /// </summary>
     public class ViewModel : DependencyObject, INotifyPropertyChanged
     {
         public ViewModel()

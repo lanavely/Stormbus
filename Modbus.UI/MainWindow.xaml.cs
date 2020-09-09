@@ -14,7 +14,7 @@ namespace Stormbus.UI
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public ViewModel ViewModel;
 
@@ -43,18 +43,24 @@ namespace Stormbus.UI
             }
         }
 
+        /// <summary>
+        ///     Opens a window for executing the command
+        /// </summary>
         private void DataGrid_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (sender is DataGrid dataGrid && dataGrid.SelectedItems is IList items)
             {
-                var resultItems = new List<ResultItemModel>();
-                foreach (var item in items) resultItems.Add((ResultItemModel) ((ResultItemModel) item).Clone());
-                var commandWindow = new CommandWindow(resultItems, ViewModel.ConfigurationSettings)
+                var selectedItems = new List<ResultItemModel>();
+                foreach (var item in items) selectedItems.Add((ResultItemModel) item);
+                var commandWindow = new CommandWindow(selectedItems, ViewModel)
                     {Owner = this};
                 commandWindow.ShowDialog();
             }
         }
 
+        /// <summary>
+        ///     Saves the configuration
+        /// </summary>
         private void MainWindow_OnClosed(object sender, EventArgs e)
         {
             ViewModel.ConfigurationSettings.Serialize(StormbusDirectory.ConfigurationFilePath);

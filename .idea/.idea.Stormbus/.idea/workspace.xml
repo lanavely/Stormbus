@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="bf5c75e0-27c1-4144-9e5f-d2b3578849b1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Modbus.UI/MainWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/MainWindow.xaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modbus.UI/Containers/CommandInfoData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Stormbus/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stormbus/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Stormbus/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stormbus/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Stormbus/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stormbus/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/CommandDataBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/CommandDataBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/MultipleCoilCommandData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/MultipleCoilCommandData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/MultipleRegisterCommandData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/MultipleRegisterCommandData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/SingleCoilCommandData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/SingleCoilCommandData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/SingleRegisterCommandData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/SingleRegisterCommandData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/UI/CommandWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/UI/CommandWindow.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/UI/CommandWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/UI/CommandWindow.xaml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modbus.UI/MainWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/MainWindow.xaml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modbus.UI/Modbus/ModbusClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Modbus/ModbusClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modbus.UI/ModbusLogWriter.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Modbus.UI/UI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/UI.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modbus.UI/ViewModels/ViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/ViewModels/ViewModel.cs" afterDir="false" />
     </list>
@@ -18,10 +30,38 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Modbus.UI/MainWindow.xaml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modbus.UI/NotifyPropertyChanged.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/CommandModels/MultipleRegisterCommandModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/CommandModels/SingleCoilCommandModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/CommandModels/CommandModelBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/ResourceDictionaries/DataTypeMenuItem.xaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/Helper/ThreadHelper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/CommandModels/MultipleCoilCommandModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/MainWindow.xaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/NModbus/NModbus/Modbus.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/CommandData/CommandDataBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/ViewModels/ViewModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/CommandData/MultipleCoilCommandData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/UI/CommandWindow.xaml.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/Modbus/ModbusClient.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/MainWindow.xaml.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/CommandModelBase.cs" />
+        <option value="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/SingleCoilCommandModel.cs" />
+        <option value="$PROJECT_DIR$/Modbus.UI/Modbus/ModbusClient.cs" />
+        <option value="$PROJECT_DIR$/Modbus.UI/ViewModels/ViewModel.cs" />
+        <option value="$PROJECT_DIR$/Modbus.UI/MainWindow.xaml.cs" />
+        <option value="$PROJECT_DIR$/Modbus.UI/Command/CommandData/CommandDataBase.cs" />
+        <option value="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/MultipleCoilCommandModel.cs" />
+        <option value="$PROJECT_DIR$/Modbus.UI/Helper/MathHelper.cs" />
+      </list>
+    </option>
   </component>
   <component name="ProjectId" id="1acTESKa45aXwMJclzGxs08H510" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -32,6 +72,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TWShift.3" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="ignore.virus.scanning.warn.message" value="true" />
   </component>
   <component name="RunManager">
     <configuration name="UI" type="DotNetProject" factoryName=".NET Project">
@@ -64,12 +105,35 @@
       <option name="presentableId" value="Default" />
       <updated>1587033770828</updated>
       <workItem from="1587033772620" duration="146000" />
+      <workItem from="1599572198361" duration="11811000" />
+      <workItem from="1599646303571" duration="3167000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="844" y="444" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1" timestamp="1599572426909">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state x="844" y="444" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1/0.0.2194.1194@0.0.2194.1194" timestamp="1599572426909" />
+    <state x="1200" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1599587849081">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state x="1200" y="258" width="670" height="676" key="search.everywhere.popup/0.0.2194.1194@0.0.2194.1194" timestamp="1599587849081" />
+  </component>
 </project>

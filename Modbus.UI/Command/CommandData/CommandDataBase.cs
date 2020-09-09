@@ -1,21 +1,10 @@
-﻿using System.Windows;
-
-namespace Stormbus.UI.Command.CommandData
+﻿namespace Stormbus.UI.Command.CommandData
 {
-    public abstract class CommandDataBase : DependencyObject
+    /// <summary>
+    ///     Data required to execute the command by modbus client
+    /// </summary>
+    public class CommandDataBase
     {
-        public static readonly DependencyProperty AddressProperty = DependencyProperty.Register(
-            nameof(Address), typeof(ushort), typeof(CommandDataBase), new PropertyMetadata(default(ushort)));
-
-        protected CommandDataBase(ushort address)
-        {
-            Address = address;
-        }
-
-        public ushort Address
-        {
-            get => (ushort) GetValue(AddressProperty);
-            set => SetValue(AddressProperty, value);
-        }
+        public ushort Address { get; set; }
     }
 }

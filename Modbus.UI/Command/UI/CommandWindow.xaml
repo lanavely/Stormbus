@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:commandData="clr-namespace:Stormbus.UI.Command.CommandData"
+        xmlns:commandModels="clr-namespace:Stormbus.UI.Command.CommandModels"
         mc:Ignorable="d" x:Name="ThisWindow" WindowStartupLocation="CenterOwner"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
         Title="Command">
@@ -16,7 +17,7 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
-        <DataTemplate DataType="{x:Type commandData:SingleCoilCommandData}">
+        <DataTemplate DataType="{x:Type commandModels:SingleCoilCommandModel}">
             <StackPanel Orientation="Horizontal">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -37,7 +38,7 @@
                 </Grid>
             </StackPanel>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type commandData:SingleRegisterCommandData}">
+        <!--<DataTemplate DataType="{x:Type commandModels:SingleRegisterCommandModel}">
             <StackPanel Orientation="Horizontal">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -57,8 +58,8 @@
                              Margin="0 3 0 0" TextAlignment="Center" />
                 </Grid>
             </StackPanel>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type commandData:MultipleCoilCommandData}">
+        </DataTemplate>-->
+        <DataTemplate DataType="{x:Type commandModels:MultipleCoilCommandModel}">
             <StackPanel Orientation="Horizontal">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -77,7 +78,7 @@
                         <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
                                  Text="{Binding Count}" />
                     </StackPanel>
-                    <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3">
+                    <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Values}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -97,9 +98,9 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.Column="0" Content="{Binding ElementName=ThisWindow, Path=CommandData}" />
+        <ContentControl Grid.Column="0" Content="{Binding ElementName=ThisWindow, Path=CommandModel}" />
         <StackPanel Grid.Column="1">
-            <Button Click="ButtonBase_OnClick" Content="Send" Margin="10,17.3,0,0" IsDefault="True" MinWidth="80" />
+            <Button Click="SendButton_OnClick" Content="Send" Margin="10,17.3,0,0" IsDefault="True" MinWidth="80" />
         </StackPanel>
     </Grid>
 </Window>

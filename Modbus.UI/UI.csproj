@@ -82,6 +82,11 @@
     <Compile Include="Command\CommandData\MultipleRegisterCommandData.cs" />
     <Compile Include="Command\CommandData\SingleCoilCommandData.cs" />
     <Compile Include="Command\CommandData\SingleRegisterCommandData.cs" />
+    <Compile Include="Command\CommandModels\CommandModelBase.cs" />
+    <Compile Include="Command\CommandModels\MultipleCoilCommandModel.cs" />
+    <Compile Include="Command\CommandModels\MultipleRegisterCommandModel.cs" />
+    <Compile Include="Command\CommandModels\SingleCoilCommandModel.cs" />
+    <Compile Include="Command\CommandModels\SingleRegisterCommandModel.cs" />
     <Compile Include="Containers\DataType.cs" />
     <Compile Include="Containers\EndianType.cs" />
     <Compile Include="Containers\NumberSystem.cs" />
@@ -205,6 +210,7 @@
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>REM Create a NuGet package for this project and place the .nupkg file in the project's output directory.
