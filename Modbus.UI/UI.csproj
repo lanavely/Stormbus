@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="Extenstion\IconExtension.cs" />
     <Compile Include="Extenstion\PassingByValueExtension.cs" />
+    <Compile Include="Helper\CommandHelper.cs" />
     <Compile Include="StormbusDirectory.cs" />
     <Compile Include="Containers\BaudRate.cs" />
     <Compile Include="Containers\ConnectionType.cs" />

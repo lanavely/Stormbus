@@ -35,7 +35,7 @@ namespace Stormbus.UI.Command.UI
 
                     if (selectedItems.Count > 1)
                     {
-                        CommandModel = new MultipleCoilCommandModel(address, count, selectedItems, _viewModel);
+                        CommandModel = new MultipleCoilCommandModel(address, count, _viewModel.ConfigurationSettings);
                     }
 
                     break;
@@ -54,7 +54,8 @@ namespace Stormbus.UI.Command.UI
 
         private void SendButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.ModbusClient.ExecuteCommandAsync(CommandModel.GetCommandData());
+            if (CommandModel != null)
+                _viewModel.ModbusClient.ExecuteCommandAsync(CommandModel.GetCommandData());
             Close();
         }
     }

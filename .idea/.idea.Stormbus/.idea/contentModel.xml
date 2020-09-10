@@ -72,6 +72,7 @@
         </e>
         <e p="FodyWeavers.xml" t="Include" />
         <e p="Helper" t="Include">
+          <e p="CommandHelper.cs" t="Include" />
           <e p="ThreadHelper.cs" t="Include" />
         </e>
         <e p="Logger" t="Include">

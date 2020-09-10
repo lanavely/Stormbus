@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using Stormbus.UI.Command.CommandData;
 using Stormbus.UI.Configuration;
+using Stormbus.UI.Helper;
 using Stormbus.UI.ViewModels;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace Stormbus.UI.Command.CommandModels
 {
@@ -12,15 +15,13 @@ namespace Stormbus.UI.Command.CommandModels
     /// </summary>
     public class MultipleCoilCommandModel : CommandModelBase
     {
-        private ViewModel _viewModel;
+        private ushort _count;
 
-        public MultipleCoilCommandModel(ushort address, ushort count, List<ResultItemModel> selectedItems, ViewModel viewModel) 
-            : base(address, viewModel.ConfigurationSettings)
+        public MultipleCoilCommandModel(ushort address, ushort count, ConfigurationSettingsModel configurationSettings) 
+            : base(address, configurationSettings)
         {
-            _viewModel = viewModel;
             _count = count;
-            _selectedItems = selectedItems;
-            CountChanged(count, 0);
+            Items = CommandHelper.GenerateSignalModelList<bool>(Address, Count);
         }
 
         /// <summary>
@@ -38,28 +39,25 @@ namespace Stormbus.UI.Command.CommandModels
             }
         }
 
-        private List<ResultItemModel> _selectedItems;
-        private ushort _count;
-
         /// <summary>
         ///     Signals for editing in the command
         /// </summary>
-        public List<ResultItemModel> Values { get; set; } = new List<ResultItemModel>();
+        public List<ResultItemModel> Items { get; set; }
 
         public override CommandDataBase GetCommandData()
         {
             CommandDataBase commandData = null;
-            if (Values.Count > 1)
+            if (Items.Count > 1)
                 commandData = new MultipleCoilCommandData()
                 {
                     Address = Address,
-                    Values = Values.Select(i => (bool)i.Value).ToArray()
+                    Values = Items.Select(i => (bool)i.Value).ToArray()
                 };
-            if (Values.Count == 1)
+            if (Items.Count == 1)
                 commandData = new SingleCoilCommandData()
                 {
                     Address = Address,
-                    Value = (bool)Values[0].Value
+                    Value = (bool)Items[0].Value
                 };
 
             return commandData;
@@ -67,23 +65,7 @@ namespace Stormbus.UI.Command.CommandModels
 
         protected override void AddressChanged(ushort newValue, ushort oldValue)
         {
-            if (newValue > oldValue)
-            {
-                var removeCount = newValue - oldValue; // getting the number of signals that need to be removed from the beginning and added later
-                removeCount = removeCount > Values.Count ? Values.Count : removeCount; // validate
-                Values.RemoveRange(0, removeCount); 
-                var addingStartAddress = oldValue + Count > newValue ? newValue : oldValue + newValue; // the offset address for adding signals to the list
-                
-                Values.AddRange(Enumerable.Range(addingStartAddress, removeCount).Select(i => new ResultItemModel {Address = Convert.ToUInt16(i), Value = default(bool)}));
-            }
-
-            if (newValue < oldValue)
-            {
-                //var removeCount = oldValue - newValue;
-                //removeCount = removeCount > Values.Count ? Values.Count : removeCount;
-                //Values.RemoveRange(Values.Count - removeCount, removeCount);
-                //Values.InsertRange(0, Enumerable.Range(0, oldValue - newValue).Select(i => default(bool)));
-            }
+            CommandHelper.UpdateItemsByAddressChanged(Items, newValue, oldValue);
         }
 
         /// <summary>
@@ -91,23 +73,7 @@ namespace Stormbus.UI.Command.CommandModels
         /// </summary>
         private void CountChanged(ushort newValue, ushort oldValue)
         {
-            if (newValue > oldValue)
-            {
-                var rangeStartIndex = Address - ConfigurationSettings.StartAddress + oldValue;
-                var deltaCount = newValue - oldValue;
-                var fillDefaultCount = 0;
-                if (rangeStartIndex + deltaCount > _selectedItems.Count)
-                {
-                    fillDefaultCount = rangeStartIndex + deltaCount - _selectedItems.Count;
-                }
-                Values.AddRange(_selectedItems.GetRange(rangeStartIndex, deltaCount - fillDefaultCount));
-                Values.AddRange(Enumerable.Range(0, fillDefaultCount).Select(i => new ResultItemModel()));//TODO: to finish the assignment address
-            }
-
-            if (newValue < oldValue)
-            {
-                Values.RemoveRange(newValue, oldValue - newValue);
-            }
+            CommandHelper.UpdateItemsByCountChanged<bool>(Items, newValue, oldValue, Address);
         }
     }
 }

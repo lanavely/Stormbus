@@ -40,9 +40,5 @@ namespace Stormbus.UI.Command.CommandModels
                 Value = Value
             };
         }
-
-        protected override void AddressChanged(ushort newValue, ushort oldValue)
-        {
-        }
     }
 }

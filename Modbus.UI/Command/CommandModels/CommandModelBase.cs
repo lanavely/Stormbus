@@ -36,6 +36,9 @@ namespace Stormbus.UI.Command.CommandModels
         /// <summary>
         ///     Updates the list of signals for the command
         /// </summary>
-        protected abstract void AddressChanged(ushort newValue, ushort oldValue);
+        protected virtual void AddressChanged(ushort newValue, ushort oldValue)
+        {
+            // do nothing
+        }
     }
 }

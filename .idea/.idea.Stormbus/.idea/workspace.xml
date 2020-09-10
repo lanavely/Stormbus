@@ -5,21 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf5c75e0-27c1-4144-9e5f-d2b3578849b1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Modbus.UI/Containers/CommandInfoData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Stormbus/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stormbus/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Stormbus/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stormbus/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Stormbus/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stormbus/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/CommandDataBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/CommandDataBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/MultipleCoilCommandData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/MultipleCoilCommandData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/MultipleRegisterCommandData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/MultipleRegisterCommandData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/SingleCoilCommandData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/SingleCoilCommandData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/SingleRegisterCommandData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/CommandData/SingleRegisterCommandData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/CommandModelBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/CommandModelBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/MultipleCoilCommandModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/MultipleCoilCommandModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/SingleCoilCommandModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/SingleCoilCommandModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/UI/CommandWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/UI/CommandWindow.xaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modbus.UI/Command/UI/CommandWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Command/UI/CommandWindow.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modbus.UI/MainWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/MainWindow.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modbus.UI/Modbus/ModbusClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/Modbus/ModbusClient.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modbus.UI/UI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/UI.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modbus.UI/ViewModels/ViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modbus.UI/ViewModels/ViewModel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,28 +28,35 @@
     <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/CommandModels/SingleCoilCommandModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/CommandModels/CommandModelBase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modbus.UI/ResourceDictionaries/DataTypeMenuItem.xaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/Helper/CommandHelper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modbus.UI/Helper/ThreadHelper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5DE66FF1-1FCB-4513-8463-255B392B032B/4d/be858db7/ConfigurationSettings.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/CommandModels/MultipleCoilCommandModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///C# Console" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modbus.UI/MainWindow.xaml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/NModbus/NModbus/Modbus.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/CommandData/CommandDataBase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modbus.UI/ViewModels/ViewModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/CommandData/MultipleCoilCommandData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/UI/CommandWindow.xaml.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/Command/UI/CommandWindow.xaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Modbus.UI/ResultItemModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modbus.UI/Modbus/ModbusClient.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modbus.UI/MainWindow.xaml.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/CommandModelBase.cs" />
-        <option value="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/SingleCoilCommandModel.cs" />
         <option value="$PROJECT_DIR$/Modbus.UI/Modbus/ModbusClient.cs" />
         <option value="$PROJECT_DIR$/Modbus.UI/ViewModels/ViewModel.cs" />
         <option value="$PROJECT_DIR$/Modbus.UI/MainWindow.xaml.cs" />
         <option value="$PROJECT_DIR$/Modbus.UI/Command/CommandData/CommandDataBase.cs" />
-        <option value="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/MultipleCoilCommandModel.cs" />
         <option value="$PROJECT_DIR$/Modbus.UI/Helper/MathHelper.cs" />
+        <option value="$PROJECT_DIR$/Modbus.UI/Helper/CommandHelper.cs" />
+        <option value="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/MultipleCoilCommandModel.cs" />
+        <option value="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/CommandModelBase.cs" />
+        <option value="$PROJECT_DIR$/Modbus.UI/Command/CommandModels/SingleCoilCommandModel.cs" />
+        <option value="$PROJECT_DIR$/Modbus.UI/Command/UI/CommandWindow.xaml.cs" />
       </list>
     </option>
   </component>
@@ -106,7 +106,7 @@
       <updated>1587033770828</updated>
       <workItem from="1587033772620" duration="146000" />
       <workItem from="1599572198361" duration="11811000" />
-      <workItem from="1599646303571" duration="3167000" />
+      <workItem from="1599646303571" duration="13223000" />
     </task>
     <servers />
   </component>
@@ -131,6 +131,10 @@
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state x="844" y="444" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.RiderCodeCleanupAction$actionPerformed$dlg$1/0.0.2194.1194@0.0.2194.1194" timestamp="1599572426909" />
+    <state x="754" y="279" key="run.anything.popup" timestamp="1599671965044">
+      <screen x="0" y="0" width="2194" height="1194" />
+    </state>
+    <state x="754" y="279" key="run.anything.popup/0.0.2194.1194@0.0.2194.1194" timestamp="1599671965044" />
     <state x="1200" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1599587849081">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
