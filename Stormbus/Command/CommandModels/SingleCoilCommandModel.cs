@@ -1,8 +1,5 @@
-﻿using System.Configuration;
-using System.Windows;
+﻿using System.Windows;
 using Stormbus.UI.Command.CommandData;
-using Stormbus.UI.Configuration;
-using Stormbus.UI.ViewModels;
 
 namespace Stormbus.UI.Command.CommandModels
 {
@@ -14,7 +11,7 @@ namespace Stormbus.UI.Command.CommandModels
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
             nameof(Value), typeof(bool), typeof(SingleCoilCommandModel), new PropertyMetadata(default(bool)));
 
-        public SingleCoilCommandModel(ushort address) 
+        public SingleCoilCommandModel(ushort address)
             : base(address)
         {
         }
@@ -30,7 +27,7 @@ namespace Stormbus.UI.Command.CommandModels
 
         public override CommandDataBase GetCommandData()
         {
-            return new SingleCoilCommandData()
+            return new SingleCoilCommandData
             {
                 Address = Address,
                 Value = Value

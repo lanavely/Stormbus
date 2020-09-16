@@ -1,5 +1,4 @@
 ﻿using Stormbus.UI.Command.CommandData;
-using Stormbus.UI.Configuration;
 
 namespace Stormbus.UI.Command.CommandModels
 {
@@ -9,7 +8,7 @@ namespace Stormbus.UI.Command.CommandModels
             : base(address)
         {
         }
-        
+
         public ushort Value { get; set; }
 
         public override CommandDataBase GetCommandData()

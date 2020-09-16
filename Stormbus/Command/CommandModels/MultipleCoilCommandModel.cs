@@ -1,22 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using Stormbus.UI.Command.CommandModels;
-using Stormbus.UI.Configuration;
+using Stormbus.UI.Command.CommandData;
 using Stormbus.UI.Helper;
 
-namespace Stormbus.UI.Command.CommandData
+namespace Stormbus.UI.Command.CommandModels
 {
-    public class MultipleRegisterCommandModel : CommandModelBase
+    /// <summary>
+    ///     Model for function 15
+    /// </summary>
+    public class MultipleCoilCommandModel : CommandModelBase
     {
         private ushort _count;
-        
-        public MultipleRegisterCommandModel(ushort address, ushort count) 
+
+        public MultipleCoilCommandModel(ushort address, ushort count)
             : base(address)
         {
-            Count = count;
+            _count = count;
+            Items = CommandHelper.GenerateSignalModelList<bool>(Address, Count);
         }
-        
+
         /// <summary>
         ///     Number of signals in the command
         /// </summary>
@@ -41,16 +43,16 @@ namespace Stormbus.UI.Command.CommandData
         {
             CommandDataBase commandData = null;
             if (Items.Count > 1)
-                commandData = new MultipleRegisterCommandData()
+                commandData = new MultipleCoilCommandData
                 {
                     Address = Address,
-                    Values = Items.Select(i => (ushort)i.Value).ToArray()
+                    Values = Items.Select(i => (bool) i.Value).ToArray()
                 };
             if (Items.Count == 1)
-                commandData = new SingleRegisterCommandData()
+                commandData = new SingleCoilCommandData
                 {
                     Address = Address,
-                    Value = (ushort)Items[0].Value
+                    Value = (bool) Items[0].Value
                 };
 
             return commandData;
@@ -62,11 +64,11 @@ namespace Stormbus.UI.Command.CommandData
         }
 
         /// <summary>
-        ///    Updates the list of signals for the command
+        ///     Updates the list of signals for the command
         /// </summary>
         private void CountChanged(ushort newValue, ushort oldValue)
         {
-            CommandHelper.UpdateItemsByCountChanged<ushort>(Items, newValue, oldValue, Address);
+            CommandHelper.UpdateItemsByCountChanged<bool>(Items, newValue, oldValue, Address);
         }
     }
 }

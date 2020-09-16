@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using Stormbus.UI.Command.CommandData;
-using Stormbus.UI.Configuration;
 
 namespace Stormbus.UI.Command.CommandModels
 {
@@ -10,7 +9,7 @@ namespace Stormbus.UI.Command.CommandModels
             nameof(Address), typeof(ushort), typeof(CommandModelBase),
             new FrameworkPropertyMetadata(default(ushort),
                 (d, e) => { (d as CommandModelBase)?.AddressChanged((ushort) e.NewValue, (ushort) e.OldValue); }));
-        
+
         protected CommandModelBase(ushort address)
         {
             Address = address;
