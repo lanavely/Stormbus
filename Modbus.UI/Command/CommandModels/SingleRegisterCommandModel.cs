@@ -1,18 +1,20 @@
-﻿using Stormbus.UI.Configuration;
+﻿using Stormbus.UI.Command.CommandData;
+using Stormbus.UI.Configuration;
 
 namespace Stormbus.UI.Command.CommandModels
 {
-    //public class SingleRegisterCommandModel : CommandModelBase
-    //{
-    //    public SingleRegisterCommandModel(ushort address, ushort value, ConfigurationSettingsModel configurationSettings)
-    //        : base(address)
-    //    {
-    //        Value = value;
-    //        _configurationSettings = configurationSettings;
-    //    }
+    public class SingleRegisterCommandModel : CommandModelBase
+    {
+        public SingleRegisterCommandModel(ushort address)
+            : base(address)
+        {
+        }
+        
+        public ushort Value { get; set; }
 
-    //    public ushort Value { get; set; }
-
-    //    private ConfigurationSettingsModel _configurationSettings;
-    //}
+        public override CommandDataBase GetCommandData()
+        {
+            return new SingleRegisterCommandData {Address = Address, Value = Value};
+        }
+    }
 }

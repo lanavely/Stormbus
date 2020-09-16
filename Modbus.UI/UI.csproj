@@ -125,7 +125,7 @@
     </Compile>
     <Compile Include="Enums\WorkingStates.cs" />
     <Compile Include="Extenstion\ObservableCollectionExt.cs" />
-    <Compile Include="Helper\ThreadHelper.cs" />
+    <Compile Include="Helper\ThreadController.cs" />
     <Compile Include="Logger\CustomModbusLogger.cs" />
     <Compile Include="Logger\LoggingPanelSettings.cs" />
     <Compile Include="Logger\StormbusTextWriter.cs" />

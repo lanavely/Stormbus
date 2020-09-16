@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Controls;
 using Stormbus.UI.Configuration;
 using Stormbus.UI.Converters;
 using Stormbus.UI.Extenstion;
@@ -12,8 +13,9 @@ namespace Stormbus.UI.Containers
     public class ResultData : NotifyPropertyChanged
     {
         private readonly ConfigurationSettingsModel _configurationSettings;
-        private IEnumerable<bool> _boolOriginData;
-        private IEnumerable<ushort> _registersOriginData;
+        private bool[] _boolOriginData;
+        private ushort[] _registersOriginData;
+        private DataGrid dataGrid;
 
         public ResultData(ConfigurationSettingsModel configurationSettings)
         {
@@ -23,43 +25,43 @@ namespace Stormbus.UI.Containers
 
         public ObservableCollection<ResultItemModel> DisplayData { get; } = new ObservableCollection<ResultItemModel>();
 
-        public void ApplyConfiguration(IEnumerable<ushort> data)
+        public void ApplyConfiguration(ushort[] data)
         {
             DisplayData.Clear();
-
             for (var i = _configurationSettings.StartAddress;
-                i < _configurationSettings.StartAddress + _configurationSettings.Count;)
-            {
-                DisplayData.Add(new ResultItemModel {Address = i});
-
-                switch (_configurationSettings.DataType)
+                    i < _configurationSettings.StartAddress + _configurationSettings.Count;)
                 {
-                    case DataType.Short:
-                    case DataType.UShort:
-                        i += 1;
-                        break;
-                    case DataType.Int:
-                    case DataType.UInt:
-                    case DataType.Float:
-                        i += 2;
-                        break;
-                    case DataType.Long:
-                    case DataType.Double:
-                        i += 4;
-                        break;
-                    default:
-                        throw new ArgumentException();
+                    DisplayData.Add(new ResultItemModel { Address = i });
+
+                    switch (_configurationSettings.DataType)
+                    {
+                        case DataType.Short:
+                        case DataType.UShort:
+                            i += 1;
+                            break;
+                        case DataType.Int:
+                        case DataType.UInt:
+                        case DataType.Float:
+                            i += 2;
+                            break;
+                        case DataType.Long:
+                        case DataType.Double:
+                            i += 4;
+                            break;
+                        default:
+                            throw new ArgumentException();
+                    }
                 }
-            }
 
             UpdateData(data);
         }
 
-        public void ApplyConfiguration(IEnumerable<bool> data)
+        public void ApplyConfiguration(bool[] data)
         {
             DisplayData.Clear();
             DisplayData.AddRange(Enumerable.Range(_configurationSettings.StartAddress, _configurationSettings.Count)
                 .Select(i => new ResultItemModel {Address = Convert.ToUInt16(i)}));
+            UpdateData(data);
         }
 
         public void DataTypeChanged()
@@ -84,11 +86,11 @@ namespace Stormbus.UI.Containers
             }
         }
 
-        public void UpdateData(IEnumerable<ushort> data)
+        public void UpdateData(ushort[] data)
         {
             _registersOriginData = data;
             var b = new List<int>();
-            using (var originDataEnumerator = _registersOriginData.GetEnumerator())
+            using (var originDataEnumerator = ((IEnumerable<ushort>) _registersOriginData).GetEnumerator())
             {
                 foreach (var item in DisplayData)
                 {
@@ -100,33 +102,33 @@ namespace Stormbus.UI.Containers
                             convertedItem = ModbusDataTypesConverter.ConvertToShort(
                                 ComposeToArray(originDataEnumerator, 1), _configurationSettings.RegistersEndian,
                                 _configurationSettings.BytesEndian);
-                            displayString = Convert.ToString((short) convertedItem);
+                            displayString = Convert.ToString((short)convertedItem);
                             break;
                         case DataType.UShort:
                             convertedItem = ModbusDataTypesConverter.ConvertToUShort(
                                 ComposeToArray(originDataEnumerator, 1), _configurationSettings.RegistersEndian,
                                 _configurationSettings.BytesEndian);
                             displayString = Convert
-                                .ToString((ushort) convertedItem, (int) _configurationSettings.NumberSystem).ToUpper();
+                                .ToString((ushort)convertedItem, (int)_configurationSettings.NumberSystem).ToUpper();
                             break;
                         case DataType.Int:
                             convertedItem = ModbusDataTypesConverter.ConvertToInt(
                                 ComposeToArray(originDataEnumerator, 2), _configurationSettings.RegistersEndian,
                                 _configurationSettings.BytesEndian);
-                            displayString = Convert.ToString((int) convertedItem);
+                            displayString = Convert.ToString((int)convertedItem);
                             break;
                         case DataType.UInt:
                             convertedItem = ModbusDataTypesConverter.ConvertToUInt(
                                 ComposeToArray(originDataEnumerator, 2), _configurationSettings.RegistersEndian,
                                 _configurationSettings.BytesEndian);
                             displayString = Convert
-                                .ToString((uint) convertedItem, (int) _configurationSettings.NumberSystem).ToUpper();
+                                .ToString((uint)convertedItem, (int)_configurationSettings.NumberSystem).ToUpper();
                             break;
                         case DataType.Long:
                             convertedItem = ModbusDataTypesConverter.ConvertToLong(
                                 ComposeToArray(originDataEnumerator, 4), _configurationSettings.RegistersEndian,
                                 _configurationSettings.BytesEndian);
-                            displayString = Convert.ToString((long) convertedItem);
+                            displayString = Convert.ToString((long)convertedItem);
                             break;
                         case DataType.Float:
                             convertedItem = ModbusDataTypesConverter.ConvertToFloat(
@@ -148,10 +150,10 @@ namespace Stormbus.UI.Containers
             }
         }
 
-        public void UpdateData(IEnumerable<bool> data)
+        public void UpdateData(bool[] data)
         {
             _boolOriginData = data;
-            using (var originDataEnumerator = _boolOriginData.GetEnumerator())
+            using (var originDataEnumerator = ((IEnumerable<bool>)_boolOriginData).GetEnumerator())
             {
                 foreach (var item in DisplayData)
                     if (originDataEnumerator.MoveNext())
@@ -177,24 +179,24 @@ namespace Stormbus.UI.Containers
             return a;
         }
 
-        public void ApplyConfigurationToMain(IEnumerable<ushort> data)
+        public void ApplyConfigurationToMain(ushort[] data)
         {
-            ThreadHelper.InvokeToMain(() => { ApplyConfiguration(data); });
+            ThreadController.InvokeToMain(() => { ApplyConfiguration(data); });
         }
 
-        public void ApplyConfigurationToMain(IEnumerable<bool> data)
+        public void ApplyConfigurationToMain(bool[] data)
         {
-            ThreadHelper.InvokeToMain(() => { ApplyConfiguration(data); });
+            ThreadController.InvokeToMain(() => { ApplyConfiguration(data); });
         }
 
-        public void UpdateDataToMain(IEnumerable<ushort> data)
+        public void UpdateDataToMain(ushort[] data)
         {
-            ThreadHelper.InvokeToMain(() => { UpdateData(data); });
+            ThreadController.InvokeToMain(() => { UpdateData(data); });
         }
 
-        public void UpdateDataToMain(IEnumerable<bool> data)
+        public void UpdateDataToMain(bool[] data)
         {
-            ThreadHelper.InvokeToMain(() => { UpdateData(data); });
+            ThreadController.InvokeToMain(() => { UpdateData(data); });
         }
     }
 }

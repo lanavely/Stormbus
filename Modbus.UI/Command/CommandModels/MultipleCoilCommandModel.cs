@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using Stormbus.UI.Command.CommandData;
@@ -17,8 +18,8 @@ namespace Stormbus.UI.Command.CommandModels
     {
         private ushort _count;
 
-        public MultipleCoilCommandModel(ushort address, ushort count, ConfigurationSettingsModel configurationSettings) 
-            : base(address, configurationSettings)
+        public MultipleCoilCommandModel(ushort address, ushort count) 
+            : base(address)
         {
             _count = count;
             Items = CommandHelper.GenerateSignalModelList<bool>(Address, Count);
@@ -34,15 +35,15 @@ namespace Stormbus.UI.Command.CommandModels
             {
                 if (value <= 0)
                     value = 1;
-                CountChanged(value, _count);
                 _count = value;
+                CountChanged(value, _count);
             }
         }
 
         /// <summary>
         ///     Signals for editing in the command
         /// </summary>
-        public List<ResultItemModel> Items { get; set; }
+        public ObservableCollection<ResultItemModel> Items { get; set; }
 
         public override CommandDataBase GetCommandData()
         {

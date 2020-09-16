@@ -25,21 +25,32 @@ namespace Stormbus.UI.Command.UI
             var address = selectedItems.FirstOrDefault()?.Address ?? 0;
             var count = Convert.ToUInt16(selectedItems.Count > 0 ? selectedItems.Count : 1);
 
+            // get view model depending on function and signal count
             switch (_viewModel.ConfigurationSettings.Function)
             {
                 case ModbusFunctionCodes.ReadCoils:
                     if (selectedItems.Count == 1)
                     {
-                        CommandModel = new SingleCoilCommandModel(address, (bool)selectedItems.First().Value, _viewModel);
+                        CommandModel = new SingleCoilCommandModel(address);
                     }
 
                     if (selectedItems.Count > 1)
                     {
-                        CommandModel = new MultipleCoilCommandModel(address, count, _viewModel.ConfigurationSettings);
+                        CommandModel = new MultipleCoilCommandModel(address, count);
                     }
 
                     break;
                 case ModbusFunctionCodes.ReadHoldingRegisters:
+                    if (selectedItems.Count == 1)
+                    {
+                        CommandModel = new SingleCoilCommandModel(address);
+                    }
+
+                    if (selectedItems.Count > 1)
+                    {
+                        CommandModel = new MultipleCoilCommandModel(address, count);
+                    }
+                    
                     break;
             }
 

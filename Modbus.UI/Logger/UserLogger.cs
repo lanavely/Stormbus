@@ -8,13 +8,13 @@ namespace Stormbus.UI.Logger
     {
         public static void WriteLine(string message)
         {
-            ThreadHelper.InvokeToMain(() => { Console.WriteLine(message); });
+            ThreadController.InvokeToMain(() => { Console.WriteLine(message); });
         }
 
         public static void WriteLine(string message, CancellationTokenSource cancellationToken)
         {
             cancellationToken.Token.ThrowIfCancellationRequested();
-            ThreadHelper.InvokeToMain(() => { Console.WriteLine(message); });
+            ThreadController.InvokeToMain(() => { Console.WriteLine(message); });
         }
     }
 }

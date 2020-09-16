@@ -38,7 +38,7 @@
                 </Grid>
             </StackPanel>
         </DataTemplate>
-        <!--<DataTemplate DataType="{x:Type commandModels:SingleRegisterCommandModel}">
+        <DataTemplate DataType="{x:Type commandModels:SingleRegisterCommandModel}">
             <StackPanel Orientation="Horizontal">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -58,7 +58,7 @@
                              Margin="0 3 0 0" TextAlignment="Center" />
                 </Grid>
             </StackPanel>
-        </DataTemplate>-->
+        </DataTemplate>
         <DataTemplate DataType="{x:Type commandModels:MultipleCoilCommandModel}">
             <StackPanel Orientation="Horizontal">
                 <Grid>

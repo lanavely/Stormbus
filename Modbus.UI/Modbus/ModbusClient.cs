@@ -226,28 +226,23 @@ namespace Stormbus.UI.Modbus
 
         private void ReadByFunction(IModbusMaster master, bool isFirstRead)
         {
-            IEnumerable result;
             switch (_configurationSettings.Function)
             {
                 case 1:
-                    result = master.ReadCoils(_configurationSettings.SlaveId,
-                        _configurationSettings.StartAddress, _configurationSettings.Count).Select(Convert.ToUInt16);
-                    UpdateUI((IEnumerable<bool>)result, isFirstRead);
+                    UpdateUI(master.ReadCoils(_configurationSettings.SlaveId,
+                        _configurationSettings.StartAddress, _configurationSettings.Count), isFirstRead);
                     break;
                 case 2:
-                    result = master.ReadInputs(_configurationSettings.SlaveId,
-                        _configurationSettings.StartAddress, _configurationSettings.Count).Select(Convert.ToUInt16);
-                    UpdateUI((IEnumerable<bool>)result, isFirstRead);
+                    UpdateUI(master.ReadInputs(_configurationSettings.SlaveId,
+                        _configurationSettings.StartAddress, _configurationSettings.Count), isFirstRead);
                     break;
                 case 3:
-                    result = master.ReadHoldingRegisters(_configurationSettings.SlaveId,
-                        _configurationSettings.StartAddress, _configurationSettings.Count);
-                    UpdateUI((IEnumerable<ushort>)result, isFirstRead);
+                    UpdateUI(master.ReadHoldingRegisters(_configurationSettings.SlaveId,
+                        _configurationSettings.StartAddress, _configurationSettings.Count), isFirstRead);
                     break;
                 case 4:
-                    result = master.ReadInputRegisters(_configurationSettings.SlaveId,
-                        _configurationSettings.StartAddress, _configurationSettings.Count);
-                    UpdateUI((IEnumerable<ushort>)result, isFirstRead);
+                    UpdateUI(master.ReadInputRegisters(_configurationSettings.SlaveId,
+                        _configurationSettings.StartAddress, _configurationSettings.Count), isFirstRead);
                     break;
                 default:
                     throw new ArgumentException();
@@ -319,7 +314,7 @@ namespace Stormbus.UI.Modbus
 
         #region UpdateUI
 
-        private void UpdateUI(IEnumerable<ushort> inputs, bool isFirstRead)
+        private void UpdateUI(ushort[] inputs, bool isFirstRead)
         {
             if (isFirstRead)
             {
@@ -330,7 +325,7 @@ namespace Stormbus.UI.Modbus
             _resultData.UpdateDataToMain(inputs);
         }
 
-        private void UpdateUI(IEnumerable<bool> inputs, bool isFirstRead)
+        private void UpdateUI(bool[] inputs, bool isFirstRead)
         {
             if (isFirstRead)
             {

@@ -11,16 +11,12 @@ namespace Stormbus.UI.Command.CommandModels
     /// </summary>
     public class SingleCoilCommandModel : CommandModelBase
     {
-        private ViewModel _viewModel;
-
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
             nameof(Value), typeof(bool), typeof(SingleCoilCommandModel), new PropertyMetadata(default(bool)));
 
-        public SingleCoilCommandModel(ushort address, bool value, ViewModel viewModel) 
-            : base(address, viewModel.ConfigurationSettings)
+        public SingleCoilCommandModel(ushort address) 
+            : base(address)
         {
-            _viewModel = viewModel;
-            Value = value;
         }
 
         /// <summary>

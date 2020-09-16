@@ -10,13 +10,10 @@ namespace Stormbus.UI.Command.CommandModels
             nameof(Address), typeof(ushort), typeof(CommandModelBase),
             new FrameworkPropertyMetadata(default(ushort),
                 (d, e) => { (d as CommandModelBase)?.AddressChanged((ushort) e.NewValue, (ushort) e.OldValue); }));
-
-        protected readonly ConfigurationSettingsModel ConfigurationSettings;
-
-        protected CommandModelBase(ushort address, ConfigurationSettingsModel configurationSettings)
+        
+        protected CommandModelBase(ushort address)
         {
             Address = address;
-            ConfigurationSettings = configurationSettings;
         }
 
         /// <summary>

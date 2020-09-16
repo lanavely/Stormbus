@@ -3,18 +3,18 @@ using System.Windows.Threading;
 
 namespace Stormbus.UI.Helper
 {
-    public static class ThreadHelper
+    public static class ThreadController
     {
-        private static Dispatcher _dispatcher;
+        public static Dispatcher Dispatcher;
 
         public static void SetDispatcher(Dispatcher dispatcher)
         {
-            _dispatcher = dispatcher;
+            Dispatcher = dispatcher;
         }
 
         public static void InvokeToMain(Action callback)
         {
-            _dispatcher.Invoke(callback);
+            Dispatcher.Invoke(callback);
         }
     }
 }

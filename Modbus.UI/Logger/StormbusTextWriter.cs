@@ -20,7 +20,7 @@ namespace Stormbus.UI.Logger
 
         public override void WriteLine(string value)
         {
-            ThreadHelper.InvokeToMain(() =>
+            ThreadController.InvokeToMain(() =>
             {
                 _textBox.Select(_textBox.Text.Length + 1, 0);
                 _textBox.AppendText("[" + DateTime.Now.TimeOfDay + "] > ");
