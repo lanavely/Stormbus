@@ -19,8 +19,6 @@ namespace Stormbus.UI.Logger
         /// <summary>
         ///     Log the specified message at the specified level.
         /// </summary>
-        /// <param name="level"></param>
-        /// <param name="message"></param>
         public void Log(LoggingLevel level, string message)
         {
             if (ShouldLog(level)) LogCore(level, message);

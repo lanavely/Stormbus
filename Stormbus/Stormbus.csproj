@@ -310,16 +310,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NModbus\NModbus.Serial\NModbus.Serial.csproj">
-      <Project>{8a972cd6-9c68-41ab-acf9-8fc881b39da1}</Project>
-      <Name>NModbus.Serial</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NModbus\NModbus\NModbus.csproj">
-      <Project>{3517ffca-9d37-4c05-8f7e-558e22a5372f}</Project>
-      <Name>NModbus</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup />
