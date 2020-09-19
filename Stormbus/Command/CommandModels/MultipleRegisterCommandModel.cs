@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using Stormbus.UI.Command.CommandModels;
+using Stormbus.UI.Command.CommandData;
 using Stormbus.UI.Helper;
 
-namespace Stormbus.UI.Command.CommandData
+namespace Stormbus.UI.Command.CommandModels
 {
     public class MultipleRegisterCommandModel : CommandModelBase
     {
@@ -13,6 +13,7 @@ namespace Stormbus.UI.Command.CommandData
             : base(address)
         {
             Count = count;
+            Items = CommandHelper.GenerateSignalModelList<ushort>(Address, Count);
         }
 
         /// <summary>

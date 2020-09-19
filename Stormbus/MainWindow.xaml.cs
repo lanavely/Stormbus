@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -48,14 +49,16 @@ namespace Stormbus.UI
         /// </summary>
         private void DataGrid_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (sender is DataGrid dataGrid && dataGrid.SelectedItems is IList items)
-            {
-                var selectedItems = new List<ResultItemModel>();
-                foreach (var item in items) selectedItems.Add((ResultItemModel) item);
-                var commandWindow = new CommandWindow(selectedItems, ViewModel)
-                    {Owner = this};
-                commandWindow.ShowDialog();
-            }
+            OpenCommandWindow();
+        }
+
+        private void OpenCommandWindow()
+        {
+            var selectedItems = new List<ResultItemModel>();
+            foreach (var item in ResultItemsDataGrid.SelectedItems) selectedItems.Add((ResultItemModel) item);
+            var commandWindow = new CommandWindow(selectedItems, ViewModel)
+                {Owner = this};
+            commandWindow.ShowDialog();
         }
 
         /// <summary>
@@ -64,6 +67,11 @@ namespace Stormbus.UI
         private void MainWindow_OnClosed(object sender, EventArgs e)
         {
             ViewModel.ConfigurationSettings.Serialize(StormbusDirectory.ConfigurationFilePath);
+        }
+
+        private void DataGridMenu_SendCommandClick(object sender, RoutedEventArgs e)
+        {
+            OpenCommandWindow();
         }
     }
 }

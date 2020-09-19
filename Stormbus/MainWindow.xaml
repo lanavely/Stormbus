@@ -19,6 +19,9 @@
         <converters:BaudRateDisplayMemberConverter x:Key="BaudRateDisplayMemberConverter" />
         <converters:RtuAsciiRadioButtonVisibilityConverter x:Key="RtuAsciiRadioButtonVisibilityConverter" />
         <converters:DataTypeSelectedConverter x:Key="DataTypeSelectedConverter" />
+        <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -32,26 +35,34 @@
             <RowDefinition />
             <RowDefinition Height="17" />
         </Grid.RowDefinitions>
+        <!-- Result data grid and log panel splitter -->
         <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-        <StatusBar Grid.Row="1" Grid.ColumnSpan="5" Background="{Binding StatusBar.StatusBarColor}" />
-        <DataGrid Grid.Column="0"
+        <StatusBar Grid.Row="1" Grid.ColumnSpan="5" Grid.Column="0" Background="{Binding StatusBar.StatusBarColor}" />
+        <!-- Result data grid -->
+        <DataGrid Grid.Row="0" Grid.Column="0"
+                  x:Name="ResultItemsDataGrid"
                   CanUserReorderColumns="False"
                   ItemsSource="{Binding ResultData.DisplayData}"
                   AutoGenerateColumns="False"
                   HorizontalAlignment="Center"
                   CanUserAddRows="False"
                   CanUserSortColumns="False"
-                  MouseDoubleClick="DataGrid_OnPreviewMouseDoubleClick">
+                  MouseDoubleClick="DataGrid_OnPreviewMouseDoubleClick"
+                  CellStyle="{StaticResource DataGridCellStyle}">
+            <DataGrid.Resources>
+                <Style x:Key="CellStyle" TargetType="DataGridCell">
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Address"
                                     Binding="{Binding Address}"
-                                    Width="Auto"
                                     IsReadOnly="True"
-                                    MinWidth="60" />
+                                    Width="*"
+                                    MinWidth="60"/>
                 <DataGridTextColumn Header="Value"
                                     Binding="{Binding DisplayValue}"
-                                    Width="Auto"
+                                    Width="2*"
                                     MinWidth="120"
                                     IsReadOnly="True" />
             </DataGrid.Columns>
@@ -70,12 +81,15 @@
                             </MenuItem.Template>
                         </MenuItem>
                     </MenuItem>
+                    <MenuItem Header="Send command" Click="DataGridMenu_SendCommandClick"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
+        <!-- Log panel -->
         <TextBox x:Name="LogTextBox" Grid.Column="2" Grid.Row="0"
                  TextWrapping="Wrap" IsReadOnly="True"
                  VerticalScrollBarVisibility="Auto" />
+        <!-- Settings panel -->
         <TabControl Grid.Column="4" Grid.Row="0" TabStripPlacement="Right" HorizontalAlignment="Stretch"
                     DataContext="{Binding ConfigurationSettings}">
             <TabControl.Resources>
@@ -95,7 +109,7 @@
                 </Style>
             </TabControl.Resources>
             <TabItem Header="General">
-                <StackPanel x:Name="ConfigurationStackPanel"
+                <StackPanel
                             Margin="0 0 4 0" Width="80">
                     <StackPanel.Resources>
                         <Style TargetType="TextBlock">

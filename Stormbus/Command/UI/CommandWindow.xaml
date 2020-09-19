@@ -9,6 +9,9 @@
         mc:Ignorable="d" x:Name="ThisWindow" WindowStartupLocation="CenterOwner"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
         Title="Command">
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="Close"/>
+    </Window.InputBindings>
     <Window.Resources>
         <Style TargetType="Grid">
             <Setter Property="Margin" Value="5 0 7 0" />
@@ -32,7 +35,7 @@
                                TextAlignment="Center" />
                     <TextBlock Text="Value" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" />
                     <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding Address}"
-                             TextAlignment="Center" Margin="0 3 0 0" />
+                             TextAlignment="Center" Margin="0 3 0 0"/>
                     <CheckBox Grid.Column="1" Grid.Row="1" IsChecked="{Binding Value}"
                               Margin="0 3 0 0" />
                 </Grid>
@@ -78,16 +81,60 @@
                         <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
                                  Text="{Binding Count}" />
                     </StackPanel>
-                    <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Items}">
+                    <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Items}" BorderThickness="0">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <CheckBox IsChecked="{Binding Value}" />
+                                    <TextBlock Text=" "/>
                                     <TextBlock Text="{Binding Address}" />
                                     <TextBlock Text="Coil " />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Focusable" Value="False"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type commandModels:MultipleRegisterCommandModel}">
+            <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" MinWidth="63" />
+                        <ColumnDefinition Width="Auto" MinWidth="63" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <TextBlock Text="Address" Grid.Column="0" Grid.Row="0" TextAlignment="Center" />
+                        <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
+                                 Text="{Binding Address}" />
+                        <TextBlock Text="Count" Grid.Column="0" Grid.Row="0" Margin="0 3 0 0" TextAlignment="Center" />
+                        <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
+                                 Text="{Binding Count}" />
+                    </StackPanel>
+                    <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Items}" BorderThickness="0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Address}" />
+                                    <TextBlock Text="  " />
+                                    <TextBox Text="{Binding Value}" MinWidth="40"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Focusable" Value="False"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
                     </ListView>
                 </Grid>
             </StackPanel>

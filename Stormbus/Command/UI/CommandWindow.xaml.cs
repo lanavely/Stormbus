@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using NModbus;
+using Stormbus.UI.Command.CommandData;
 using Stormbus.UI.Command.CommandModels;
 using Stormbus.UI.ViewModels;
 
@@ -29,27 +30,19 @@ namespace Stormbus.UI.Command.UI
             switch (_viewModel.ConfigurationSettings.Function)
             {
                 case ModbusFunctionCodes.ReadCoils:
-                    if (selectedItems.Count == 1)
-                    {
+                    if (count == 1)
                         CommandModel = new SingleCoilCommandModel(address);
-                    }
 
-                    if (selectedItems.Count > 1)
-                    {
+                    if (count > 1)
                         CommandModel = new MultipleCoilCommandModel(address, count);
-                    }
 
                     break;
                 case ModbusFunctionCodes.ReadHoldingRegisters:
-                    if (selectedItems.Count == 1)
-                    {
-                        CommandModel = new SingleCoilCommandModel(address);
-                    }
+                    if (count == 1)
+                        CommandModel = new SingleRegisterCommandModel(address);
 
-                    if (selectedItems.Count > 1)
-                    {
-                        CommandModel = new MultipleCoilCommandModel(address, count);
-                    }
+                    if (count > 1)
+                        CommandModel = new MultipleRegisterCommandModel(address, count);
                     
                     break;
             }

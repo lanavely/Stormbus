@@ -29,6 +29,7 @@ namespace Stormbus.UI.Helper
 
         public static void UpdateItemsByAddressChanged(ObservableCollection<ResultItemModel> items, ushort newAddress, ushort oldAddress)
         {
+            if (items == null) return;
             foreach (var item in items)
             {
                 item.Address = newAddress;

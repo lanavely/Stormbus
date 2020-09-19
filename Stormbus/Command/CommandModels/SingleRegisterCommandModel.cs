@@ -11,6 +11,7 @@ namespace Stormbus.UI.Command.CommandModels
 
         public ushort Value { get; set; }
 
+
         public override CommandDataBase GetCommandData()
         {
             return new SingleRegisterCommandData {Address = Address, Value = Value};
