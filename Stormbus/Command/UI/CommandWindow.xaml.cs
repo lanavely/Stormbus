@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using NModbus;
-using Stormbus.UI.Command.CommandData;
 using Stormbus.UI.Command.CommandModels;
 using Stormbus.UI.ViewModels;
 

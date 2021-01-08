@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using Stormbus.UI.Containers;
 using Stormbus.UI.Enums;
 
 namespace Stormbus.UI.Converters
