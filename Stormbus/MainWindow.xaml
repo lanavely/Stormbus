@@ -7,8 +7,10 @@
         xmlns:local="clr-namespace:Stormbus.UI"
         xmlns:converters="clr-namespace:Stormbus.UI.Converters"
         xmlns:customcontrols="clr-namespace:Stormbus.UI.CustomUserControls"
+        xmlns:viewmodels="clr-namespace:Stormbus.UI.ViewModels"
         mc:Ignorable="d" x:Name="Window" Closed="MainWindow_OnClosed"
-        Title="StormBus" Height="450" Width="800">
+        Title="StormBus" Height="450" Width="800"
+        d:DataContext="{viewmodels:ViewModel}">
     <Window.InputBindings>
         <KeyBinding Gesture="F5" Command="{Binding ElementName=Window, Path=StartStopReadCommand}" />
     </Window.InputBindings>
@@ -90,7 +92,7 @@
                  TextWrapping="Wrap" IsReadOnly="True"
                  VerticalScrollBarVisibility="Auto" />
         <!-- Settings panel -->
-        <TabControl Grid.Column="4" Grid.Row="0" TabStripPlacement="Right" HorizontalAlignment="Stretch"
+        <TabControl d:DataContext="{viewmodels:ViewModel}" Grid.Column="4" Grid.Row="0" TabStripPlacement="Right" HorizontalAlignment="Stretch"
                     DataContext="{Binding ConfigurationSettings}">
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabItem}">

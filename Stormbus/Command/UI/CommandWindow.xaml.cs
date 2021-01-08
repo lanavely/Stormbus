@@ -12,7 +12,7 @@ namespace Stormbus.UI.Command.UI
     /// <summary>
     ///     Interaction logic for CommandWindow.xaml
     /// </summary>
-    public partial class CommandWindow : Window
+    public partial class CommandWindow
     {
         public static readonly DependencyProperty CommandModelProperty = DependencyProperty.Register(
             nameof(CommandModel), typeof(CommandModelBase), typeof(CommandWindow),
@@ -31,18 +31,18 @@ namespace Stormbus.UI.Command.UI
             {
                 case ModbusFunctionCodes.ReadCoils:
                     if (count == 1)
-                        CommandModel = new SingleCoilCommandModel(address);
+                        CommandModel = new SingleCoilCommandModel(address, _viewModel.ConfigurationSettings);
 
                     if (count > 1)
-                        CommandModel = new MultipleCoilCommandModel(address, count);
+                        CommandModel = new MultipleCoilCommandModel(address, count, _viewModel.ConfigurationSettings);
 
                     break;
                 case ModbusFunctionCodes.ReadHoldingRegisters:
                     if (count == 1)
-                        CommandModel = new SingleRegisterCommandModel(address);
+                        CommandModel = new SingleRegisterCommandModel(address, _viewModel.ConfigurationSettings);
 
                     if (count > 1)
-                        CommandModel = new MultipleRegisterCommandModel(address, count);
+                        CommandModel = new MultipleRegisterCommandModel(address, count, _viewModel.ConfigurationSettings);
                     
                     break;
             }

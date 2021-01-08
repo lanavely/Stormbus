@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Controls;
 using Stormbus.UI.Configuration;
 using Stormbus.UI.Converters;
+using Stormbus.UI.Enums;
 using Stormbus.UI.Extenstion;
 using Stormbus.UI.Helper;
 
@@ -153,20 +154,18 @@ namespace Stormbus.UI.Containers
         public void UpdateData(bool[] data)
         {
             _boolOriginData = data;
-            using (var originDataEnumerator = ((IEnumerable<bool>)_boolOriginData).GetEnumerator())
-            {
-                foreach (var item in DisplayData)
-                    if (originDataEnumerator.MoveNext())
-                    {
-                        item.Value = originDataEnumerator.Current;
-                        item.DisplayValue = originDataEnumerator.Current.ToString();
-                    }
-                    else
-                    {
-                        item.Value = false;
-                        item.DisplayValue = false.ToString();
-                    }
-            }
+            using var originDataEnumerator = ((IEnumerable<bool>)_boolOriginData).GetEnumerator();
+            foreach (var item in DisplayData)
+                if (originDataEnumerator.MoveNext())
+                {
+                    item.Value = originDataEnumerator.Current;
+                    item.DisplayValue = originDataEnumerator.Current.ToString();
+                }
+                else
+                {
+                    item.Value = false;
+                    item.DisplayValue = false.ToString();
+                }
         }
 
         private ushort[] ComposeToArray(IEnumerator<ushort> dataEnumerator, int count)

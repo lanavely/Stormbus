@@ -1,6 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Stormbus.UI.Command.CommandData;
+using Stormbus.UI.Configuration;
+using Stormbus.UI.Converters;
 using Stormbus.UI.Helper;
 
 namespace Stormbus.UI.Command.CommandModels
@@ -9,8 +12,8 @@ namespace Stormbus.UI.Command.CommandModels
     {
         private ushort _count;
 
-        public MultipleRegisterCommandModel(ushort address, ushort count)
-            : base(address)
+        public MultipleRegisterCommandModel(ushort address, ushort count, ConfigurationSettingsModel settings)
+            : base(address, settings)
         {
             Count = count;
             Items = CommandHelper.GenerateSignalModelList<ushort>(Address, Count);
@@ -38,21 +41,27 @@ namespace Stormbus.UI.Command.CommandModels
 
         public override CommandDataBase GetCommandData()
         {
-            CommandDataBase commandData = null;
-            if (Items.Count > 1)
-                commandData = new MultipleRegisterCommandData
-                {
-                    Address = Address,
-                    Values = Items.Select(i => (ushort) i.Value).ToArray()
-                };
-            if (Items.Count == 1)
-                commandData = new SingleRegisterCommandData
-                {
-                    Address = Address,
-                    Value = (ushort) Items[0].Value
-                };
+            var registers = new List<ushort>();
+            foreach (var item in Items)
+            {
+                registers.AddRange(ModbusDataTypesConverter.ConvertToRegisters(item, Settings));
+            }
 
-            return commandData;
+            if (registers.Count == 1)
+                return new SingleRegisterCommandData
+                {
+                    Address = Address,
+                    Value = registers[0]
+                };
+            if (registers.Count > 1)
+                return  new MultipleRegisterCommandData
+                {
+                    Address = Address,
+                    Values = registers.ToArray()
+                };
+            
+
+            return null;
         }
 
         protected override void AddressChanged(ushort newValue, ushort oldValue)

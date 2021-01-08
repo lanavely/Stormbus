@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using PropertyChanged;
 using Stormbus.UI.Annotations;
 using Stormbus.UI.Containers;
+using Stormbus.UI.Enums;
 
 namespace Stormbus.UI.CustomUserControls
 {
@@ -31,9 +32,6 @@ namespace Stormbus.UI.CustomUserControls
         public static readonly DependencyProperty NumberSystemProperty = DependencyProperty.Register(
             nameof(NumberSystem), typeof(NumberSystem), typeof(DataTypeMenu),
             new PropertyMetadata(default(NumberSystem)));
-
-        public static readonly DependencyProperty ReversedRegistersProperty = DependencyProperty.Register(
-            nameof(ReversedRegisters), typeof(bool), typeof(DataTypeMenu), new PropertyMetadata(default(bool)));
 
         public static readonly DependencyProperty FunctionProperty = DependencyProperty.Register(
             nameof(Function), typeof(byte), typeof(DataTypeMenu), new PropertyMetadata(default(byte)));
@@ -70,31 +68,21 @@ namespace Stormbus.UI.CustomUserControls
             set => SetValue(NumberSystemProperty, value);
         }
 
-        public bool ReversedRegisters
-        {
-            get => (bool) GetValue(ReversedRegistersProperty);
-            set => SetValue(ReversedRegistersProperty, value);
-        }
-
         public int DataTypeLength
         {
             get
             {
-                switch (DataType)
+                return DataType switch
                 {
-                    case DataType.Short:
-                    case DataType.UShort:
-                        return 16;
-                    case DataType.Int:
-                    case DataType.UInt:
-                    case DataType.Float:
-                        return 32;
-                    case DataType.Long:
-                    case DataType.Double:
-                        return 64;
-                }
-
-                return -1;
+                    DataType.Short => 16,
+                    DataType.UShort => 16,
+                    DataType.Int => 32,
+                    DataType.UInt => 32,
+                    DataType.Float => 32,
+                    DataType.Long => 64,
+                    DataType.Double => 64,
+                    _ => -1
+                };
             }
         }
 

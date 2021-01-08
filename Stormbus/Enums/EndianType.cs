@@ -1,4 +1,4 @@
-﻿namespace Stormbus.UI.Containers
+﻿namespace Stormbus.UI.Enums
 {
     public enum EndianType
     {

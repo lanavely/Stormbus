@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using Stormbus.UI.Command.CommandData;
+using Stormbus.UI.Configuration;
 using Stormbus.UI.Helper;
 
 namespace Stormbus.UI.Command.CommandModels
@@ -12,8 +13,8 @@ namespace Stormbus.UI.Command.CommandModels
     {
         private ushort _count;
 
-        public MultipleCoilCommandModel(ushort address, ushort count)
-            : base(address)
+        public MultipleCoilCommandModel(ushort address, ushort count, ConfigurationSettingsModel settings)
+            : base(address, settings)
         {
             _count = count;
             Items = CommandHelper.GenerateSignalModelList<bool>(Address, Count);

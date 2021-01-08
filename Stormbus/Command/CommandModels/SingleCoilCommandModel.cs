@@ -1,18 +1,19 @@
 ﻿using System.Windows;
 using Stormbus.UI.Command.CommandData;
+using Stormbus.UI.Configuration;
 
 namespace Stormbus.UI.Command.CommandModels
 {
     /// <summary>
-    ///     Model for function 5
+    ///     Model for modbus 5 function
     /// </summary>
     public class SingleCoilCommandModel : CommandModelBase
     {
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
             nameof(Value), typeof(bool), typeof(SingleCoilCommandModel), new PropertyMetadata(default(bool)));
 
-        public SingleCoilCommandModel(ushort address)
-            : base(address)
+        public SingleCoilCommandModel(ushort address, ConfigurationSettingsModel settings)
+            : base(address, settings)
         {
         }
 

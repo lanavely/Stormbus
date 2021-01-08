@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using NModbus.Extensions.Functions;
+using Stormbus.UI.Configuration;
 using Stormbus.UI.Containers;
+using Stormbus.UI.Enums;
 
 namespace Stormbus.UI.Converters
 {
     public static class ModbusDataTypesConverter
     {
+        #region ConvertFromRegisters
+
         public static float ConvertToFloat(ushort[] input, EndianType registersEndian, EndianType bytesEndian)
         {
             var bytes = ConvertToByteString(input, registersEndian, bytesEndian);
@@ -57,27 +63,84 @@ namespace Stormbus.UI.Converters
 
         private static byte[] ConvertToByteString(ushort[] input, EndianType registersEndian, EndianType bytesEndian)
         {
-            //if (registersEndian == EndianType.LittleEndian) input = input.Reverse().ToArray();
+            if (registersEndian == EndianType.BigEndian)
+                Array.Reverse(input);
 
             var bytes = new byte[input.Length * 2];
             var j = 0;
-            for (var i = 0; i < input.Length; i++)
+            foreach (var item in input)
             {
-                var buffer = ParseUshortToBytes(input[bytesEndian == EndianType.BigEndian? input.Length - 1 - i : i], bytesEndian);
+                var buffer = ParseUshortToBytes(item, bytesEndian);
                 bytes[j] = buffer[0];
                 bytes[j + 1] = buffer[1];
                 j += 2;
             }
-
+            
+            NormalizeByteString(bytes);
             return bytes;
         }
 
         private static byte[] ParseUshortToBytes(ushort buffer, EndianType endian)
         {
-            var bytes = new byte[2];
-            bytes[0] = Convert.ToByte(buffer >> 8);
-            bytes[1] = Convert.ToByte(buffer & 0xFF);
-            return endian == EndianType.BigEndian ? Endian.BigEndian(bytes) : Endian.LittleEndian(bytes);
+            var bytes = BitConverter.GetBytes(buffer);
+            NormalizeByteString(bytes);
+
+            if (endian == EndianType.BigEndian)
+                Array.Reverse(bytes);
+
+            return bytes;
+        }
+
+        #endregion
+
+        #region ConvertBackToRegisters
+
+        public static ushort[] ConvertToRegisters(object value, ConfigurationSettingsModel settings)
+        {
+            var byteString = value switch
+            {
+                ushort ushort32Bytes => BitConverter.GetBytes(ushort32Bytes),
+                short short32Bytes => BitConverter.GetBytes(short32Bytes),
+                uint uint32Bytes => BitConverter.GetBytes(uint32Bytes),
+                int int32Bytes => BitConverter.GetBytes(int32Bytes),
+                long int64Bytes => BitConverter.GetBytes(int64Bytes),
+                float floatBytes => BitConverter.GetBytes(floatBytes),
+                double doubleBytes => BitConverter.GetBytes(doubleBytes),
+                _ => throw new ArgumentException(@"Unsupported argument")
+            };
+            NormalizeByteString(byteString);
+
+            if (settings.BytesEndian == EndianType.LittleEndian)
+                Array.Reverse(byteString);
+
+            var registers = ConvertByteStringToUshortString(byteString);
+
+            if (settings.RegistersEndian == EndianType.LittleEndian)
+                Array.Reverse(registers);
+            
+            return registers;
+        }
+
+
+        public static ushort[] ConvertByteStringToUshortString(byte[] byteString)
+        {
+            var result = new ushort[byteString.Length / 2];
+            var k = 0;
+            for (var i = 0; i < byteString.Length / 2; i += 2)
+            {
+                result[k] = Convert.ToUInt16((Convert.ToUInt16(byteString[i]) << 8) + byteString[i + 1]);
+                k++;
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        private static void NormalizeByteString(byte[] byteString)
+        {
+            if (!BitConverter.IsLittleEndian)
+                Array.Reverse(byteString);
         }
     }
 }

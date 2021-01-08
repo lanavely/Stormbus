@@ -6,6 +6,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:commandData="clr-namespace:Stormbus.UI.Command.CommandData"
         xmlns:commandModels="clr-namespace:Stormbus.UI.Command.CommandModels"
+        xmlns:customcontrols="clr-namespace:Stormbus.UI.CustomUserControls"
         mc:Ignorable="d" x:Name="ThisWindow" WindowStartupLocation="CenterOwner"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
         Title="Command">
@@ -34,9 +35,9 @@
                     <TextBlock Text="Address" Grid.Column="0" Grid.Row="0" Margin="5 0 0 0"
                                TextAlignment="Center" />
                     <TextBlock Text="Value" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" />
-                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding Address}"
+                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
                              TextAlignment="Center" Margin="0 3 0 0"/>
-                    <CheckBox Grid.Column="1" Grid.Row="1" IsChecked="{Binding Value}"
+                    <CheckBox Grid.Column="1" Grid.Row="1" IsChecked="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                               Margin="0 3 0 0" />
                 </Grid>
             </StackPanel>
@@ -55,9 +56,9 @@
                     <TextBlock Text="Address" Grid.Column="0" Grid.Row="0"
                                TextAlignment="Center" />
                     <TextBlock Text="Value" Grid.Column="1" Grid.Row="0" TextAlignment="Center" />
-                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding Address}"
+                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
                              Margin="0 3 0 0" TextAlignment="Center" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Value}"
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                              Margin="0 3 0 0" TextAlignment="Center" />
                 </Grid>
             </StackPanel>
@@ -76,18 +77,18 @@
                     <StackPanel>
                         <TextBlock Text="Address" Grid.Column="0" Grid.Row="0" TextAlignment="Center" />
                         <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
-                                 Text="{Binding Address}" />
+                                 Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Text="Count" Grid.Column="0" Grid.Row="0" Margin="0 3 0 0" TextAlignment="Center" />
                         <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
-                                 Text="{Binding Count}" />
+                                 Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Items}" BorderThickness="0">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox IsChecked="{Binding Value}" />
+                                    <CheckBox IsChecked="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
                                     <TextBlock Text=" "/>
-                                    <TextBlock Text="{Binding Address}" />
+                                    <TextBlock Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
                                     <TextBlock Text="Coil " />
                                 </StackPanel>
                             </DataTemplate>
@@ -115,18 +116,18 @@
                     <StackPanel>
                         <TextBlock Text="Address" Grid.Column="0" Grid.Row="0" TextAlignment="Center" />
                         <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
-                                 Text="{Binding Address}" />
+                                 Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Text="Count" Grid.Column="0" Grid.Row="0" Margin="0 3 0 0" TextAlignment="Center" />
                         <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
-                                 Text="{Binding Count}" />
+                                 Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Items}" BorderThickness="0">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Address}" />
+                                    <TextBlock Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
                                     <TextBlock Text="  " />
-                                    <TextBox Text="{Binding Value}" MinWidth="40"/>
+                                    <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" MinWidth="40"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Xml.Serialization;
 using Stormbus.UI.Containers;
+using Stormbus.UI.Enums;
 using Stormbus.UI.Logger;
 
 namespace Stormbus.UI.Configuration

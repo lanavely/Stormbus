@@ -3,7 +3,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Stormbus.UI</RootNamespace>
     <AssemblyName>Stormbus.UI</AssemblyName>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp5.0</TargetFramework>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <AssemblyTitle>Stormbus</AssemblyTitle>
@@ -93,9 +93,9 @@ ECHO Creating NuGet package in Post-Build event...</PostBuildEvent>
     </PackageReference>
     <PackageReference Include="NModbus" Version="3.0.62" />
     <PackageReference Include="NModbus.Serial" Version="3.0.62" />
-    <PackageReference Include="PropertyChanged.Fody" Version="3.3.1" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.2.9" />
     <PackageReference Include="System.IO" Version="4.3.0" />
-    <PackageReference Include="System.IO.Ports" Version="5.0.0" />
+    <PackageReference Include="System.IO.Ports" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Containers\CommandInfoData.cs" />
