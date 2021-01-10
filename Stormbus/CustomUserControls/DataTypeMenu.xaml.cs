@@ -1,10 +1,6 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using PropertyChanged;
-using Stormbus.UI.Annotations;
-using Stormbus.UI.Containers;
 using Stormbus.UI.Enums;
 
 namespace Stormbus.UI.CustomUserControls
@@ -15,16 +11,8 @@ namespace Stormbus.UI.CustomUserControls
     public partial class DataTypeMenu : INotifyPropertyChanged
     {
         public static readonly DependencyProperty DataTypeProperty = DependencyProperty.Register(
-            nameof(DataType), typeof(DataType), typeof(DataTypeMenu), 
-            new FrameworkPropertyMetadata(default(DataType), propertyChangedCallback:DataTypePropertyChangedCallback));
-
-        private static void DataTypePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is DataTypeMenu dataTypeMenu)
-            {
-                //dataTypeMenu.PropertyChanged.Invoke(dataTypeMenu, new PropertyChangedEventArgs(nameof(DataTypeLength))); TODO: implement endian settings later
-            }
-        }
+            nameof(DataType), typeof(DataType), typeof(DataTypeMenu),
+            new FrameworkPropertyMetadata(default(DataType), DataTypePropertyChangedCallback));
 
         public static readonly DependencyProperty BytesEndianProperty = DependencyProperty.Register(
             nameof(BytesEndian), typeof(EndianType), typeof(DataTypeMenu), new PropertyMetadata(default(EndianType)));
@@ -44,10 +32,7 @@ namespace Stormbus.UI.CustomUserControls
         public DataType DataType
         {
             get => (DataType) GetValue(DataTypeProperty);
-            set
-            {
-                SetValue(DataTypeProperty, value);
-            }
+            set => SetValue(DataTypeProperty, value);
         }
 
         public byte Function
@@ -86,6 +71,16 @@ namespace Stormbus.UI.CustomUserControls
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private static void DataTypePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is DataTypeMenu dataTypeMenu)
+            {
+                //dataTypeMenu.PropertyChanged.Invoke(dataTypeMenu, new PropertyChangedEventArgs(nameof(DataTypeLength))); TODO: implement endian settings later
+            }
+        }
+
         private void RadioButton_OnChecked(object sender, RoutedEventArgs e)
         {
             if (sender is RadioButton radioButton)
@@ -93,27 +88,19 @@ namespace Stormbus.UI.CustomUserControls
                 if (radioButton.Tag is DataType dataType)
                 {
                     DataType = dataType;
-                    if (DataType != DataType.UShort)
-                    {
-                        NumberSystem = NumberSystem.Decimal;
-                    }
+                    if (DataType != DataType.UShort) NumberSystem = NumberSystem.Decimal;
                     return;
                 }
 
                 if (radioButton.Tag is NumberSystem numberSystem)
                 {
                     NumberSystem = numberSystem;
-                    if (numberSystem != NumberSystem.Decimal)
-                    {
-                        DataType = DataType.UShort;
-                    }
+                    if (numberSystem != NumberSystem.Decimal) DataType = DataType.UShort;
                     return;
                 }
 
                 if (radioButton.Tag is EndianType endian) BytesEndian = endian;
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

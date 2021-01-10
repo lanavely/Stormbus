@@ -1,8 +1,4 @@
 ﻿using System;
-using System.CodeDom;
-using System.Data;
-using Stormbus.UI.Command.CommandModels;
-using Stormbus.UI.Containers;
 using Stormbus.UI.Enums;
 
 namespace Stormbus.UI.Command.CommandHelpers
@@ -15,7 +11,7 @@ namespace Stormbus.UI.Command.CommandHelpers
             switch (dataType)
             {
                 case DataType.Double:
-                    result = default(double);   
+                    result = default(double);
                     break;
                 case DataType.Float:
                     result = default(float);

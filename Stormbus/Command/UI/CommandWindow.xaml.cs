@@ -41,8 +41,9 @@ namespace Stormbus.UI.Command.UI
                         CommandModel = new SingleRegisterCommandModel(address, _viewModel.ConfigurationSettings);
 
                     if (count > 1)
-                        CommandModel = new MultipleRegisterCommandModel(address, count, _viewModel.ConfigurationSettings);
-                    
+                        CommandModel =
+                            new MultipleRegisterCommandModel(address, count, _viewModel.ConfigurationSettings);
+
                     break;
             }
 

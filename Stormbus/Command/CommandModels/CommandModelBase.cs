@@ -18,7 +18,7 @@ namespace Stormbus.UI.Command.CommandModels
         }
 
         public ConfigurationSettingsModel Settings { get; }
-        
+
         /// <summary>
         ///     Command address
         /// </summary>

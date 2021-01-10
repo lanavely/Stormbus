@@ -9,7 +9,7 @@
         xmlns:customcontrols="clr-namespace:Stormbus.UI.CustomUserControls"
         xmlns:viewmodels="clr-namespace:Stormbus.UI.ViewModels"
         mc:Ignorable="d" x:Name="Window" Closed="MainWindow_OnClosed"
-        Title="StormBus" Height="450" Width="800"
+        Title="StormBus" Height="450" Width="300" MinWidth="300"
         d:DataContext="{viewmodels:ViewModel}">
     <Window.InputBindings>
         <KeyBinding Gesture="F5" Command="{Binding ElementName=Window, Path=StartStopReadCommand}" />
@@ -21,15 +21,16 @@
         <converters:BaudRateDisplayMemberConverter x:Key="BaudRateDisplayMemberConverter" />
         <converters:RtuAsciiRadioButtonVisibilityConverter x:Key="RtuAsciiRadioButtonVisibilityConverter" />
         <converters:DataTypeSelectedConverter x:Key="DataTypeSelectedConverter" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
-            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderThickness" Value="0" />
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
@@ -37,10 +38,20 @@
             <RowDefinition />
             <RowDefinition Height="17" />
         </Grid.RowDefinitions>
-        <!-- Result data grid and log panel splitter -->
-        <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
-                      HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-        <StatusBar Grid.Row="1" Grid.ColumnSpan="5" Grid.Column="0" Background="{Binding StatusBar.StatusBarColor}" />
+        <DockPanel Grid.Row="1" Grid.ColumnSpan="5" Grid.Column="0" Background="{Binding StatusBar.StatusBarColor}">
+            <StackPanel HorizontalAlignment="Right" DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="Reset" Background="{Binding StatusBar.StatusBarColor}"
+                        HorizontalAlignment="Right" Margin="0 1 1 1" Padding="2 -3 2 0" BorderThickness="0" Foreground="#EEE"
+                        Click="ResetButton_OnClick">
+                    
+                </Button>
+                <ToggleButton Content="Log" Background="{Binding Background, RelativeSource={RelativeSource AncestorType=DockPanel}}" 
+                              HorizontalAlignment="Right" Margin="0 1 1 1" Padding="2 -3 2 0" BorderThickness="0" Foreground="#EEE"
+                              IsChecked="{Binding ConfigurationSettings.LoggingPanelSettings.IsLoggingPanelVisible}"
+                              Checked="LoggingPanelVisibilityToggleButton_OnChecked"
+                              Unchecked="LoggingPanelVisibilityToggleButton_OnUnchecked"/>
+            </StackPanel>
+        </DockPanel>
         <!-- Result data grid -->
         <DataGrid Grid.Row="0" Grid.Column="0"
                   x:Name="ResultItemsDataGrid"
@@ -51,17 +62,17 @@
                   CanUserAddRows="False"
                   CanUserSortColumns="False"
                   MouseDoubleClick="DataGrid_OnPreviewMouseDoubleClick"
-                  CellStyle="{StaticResource DataGridCellStyle}">
+                  CellStyle="{StaticResource DataGridCellStyle}"
+                  Background="White">
             <DataGrid.Resources>
-                <Style x:Key="CellStyle" TargetType="DataGridCell">
-                </Style>
+                <Style x:Key="CellStyle" TargetType="DataGridCell" />
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Address"
                                     Binding="{Binding Address}"
                                     IsReadOnly="True"
                                     Width="*"
-                                    MinWidth="60"/>
+                                    MinWidth="60" />
                 <DataGridTextColumn Header="Value"
                                     Binding="{Binding DisplayValue}"
                                     Width="2*"
@@ -83,16 +94,34 @@
                             </MenuItem.Template>
                         </MenuItem>
                     </MenuItem>
-                    <MenuItem Header="Send command" Click="DataGridMenu_SendCommandClick"/>
+                    <MenuItem Header="Send command" Click="DataGridMenu_SendCommandClick" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
         <!-- Log panel -->
         <TextBox x:Name="LogTextBox" Grid.Column="2" Grid.Row="0"
                  TextWrapping="Wrap" IsReadOnly="True"
-                 VerticalScrollBarVisibility="Auto" />
+                 Width="300"
+                 VerticalScrollBarVisibility="Auto"
+                 Visibility="{Binding ConfigurationSettings.LoggingPanelSettings.IsLoggingPanelVisible, Converter={StaticResource BoolToVisibilityConverter}, Mode=TwoWay}">
+            <TextBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Log level">
+                        <MenuItem OverridesDefaultStyle="True">
+                            <MenuItem.Template>
+                                <ControlTemplate>
+                                    <customcontrols:LoggingLevelMenu Background="#f8f8f8" Margin="0 0 10 0"
+                                                                     LoggingLevel="{Binding ConfigurationSettings.LoggingPanelSettings.MinimumLoggingLevel, Mode=TwoWay}"/>
+                                </ControlTemplate>
+                            </MenuItem.Template>
+                        </MenuItem>
+                    </MenuItem>
+                </ContextMenu>
+            </TextBox.ContextMenu>
+        </TextBox>
         <!-- Settings panel -->
-        <TabControl d:DataContext="{viewmodels:ViewModel}" Grid.Column="4" Grid.Row="0" TabStripPlacement="Right" HorizontalAlignment="Stretch"
+        <TabControl d:DataContext="{viewmodels:ViewModel}" Grid.Column="4" Grid.Row="0" TabStripPlacement="Right"
+                    HorizontalAlignment="Stretch"
                     DataContext="{Binding ConfigurationSettings}">
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabItem}">
@@ -112,7 +141,7 @@
             </TabControl.Resources>
             <TabItem Header="General">
                 <StackPanel
-                            Margin="0 0 4 0" Width="80">
+                    Margin="0 0 4 0" Width="80">
                     <StackPanel.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="Margin" Value="0 5 0 0" />

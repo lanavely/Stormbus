@@ -40,7 +40,7 @@ namespace Stormbus.UI.Command.CommandModels
                     Value = registers[0]
                 };
             if (registers.Length > 1)
-                return  new MultipleRegisterCommandData
+                return new MultipleRegisterCommandData
                 {
                     Address = Address,
                     Values = registers

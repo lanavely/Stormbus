@@ -30,29 +30,29 @@ namespace Stormbus.UI.Containers
         {
             DisplayData.Clear();
             for (var i = _configurationSettings.StartAddress;
-                    i < _configurationSettings.StartAddress + _configurationSettings.Count;)
-                {
-                    DisplayData.Add(new ResultItemModel { Address = i });
+                i < _configurationSettings.StartAddress + _configurationSettings.Count;)
+            {
+                DisplayData.Add(new ResultItemModel {Address = i});
 
-                    switch (_configurationSettings.DataType)
-                    {
-                        case DataType.Short:
-                        case DataType.UShort:
-                            i += 1;
-                            break;
-                        case DataType.Int:
-                        case DataType.UInt:
-                        case DataType.Float:
-                            i += 2;
-                            break;
-                        case DataType.Long:
-                        case DataType.Double:
-                            i += 4;
-                            break;
-                        default:
-                            throw new ArgumentException();
-                    }
+                switch (_configurationSettings.DataType)
+                {
+                    case DataType.Short:
+                    case DataType.UShort:
+                        i += 1;
+                        break;
+                    case DataType.Int:
+                    case DataType.UInt:
+                    case DataType.Float:
+                        i += 2;
+                        break;
+                    case DataType.Long:
+                    case DataType.Double:
+                        i += 4;
+                        break;
+                    default:
+                        throw new ArgumentException();
                 }
+            }
 
             UpdateData(data);
         }
@@ -70,19 +70,15 @@ namespace Stormbus.UI.Containers
             if (_configurationSettings.Function == 1 || _configurationSettings.Function == 2)
             {
                 if (_boolOriginData == null)
-                {
                     return;
-                    //_boolOriginData = new bool[_configurationSettings.Count];
-                }
+                //_boolOriginData = new bool[_configurationSettings.Count];
                 ApplyConfiguration(_boolOriginData);
             }
             else
             {
                 if (_registersOriginData == null)
-                {
                     return;
-                    //_registersOriginData = new ushort[_configurationSettings.Count];
-                }
+                //_registersOriginData = new ushort[_configurationSettings.Count];
                 ApplyConfiguration(_registersOriginData);
             }
         }
@@ -103,33 +99,33 @@ namespace Stormbus.UI.Containers
                             convertedItem = ModbusDataTypesConverter.ConvertToShort(
                                 ComposeToArray(originDataEnumerator, 1), _configurationSettings.RegistersEndian,
                                 _configurationSettings.BytesEndian);
-                            displayString = Convert.ToString((short)convertedItem);
+                            displayString = Convert.ToString((short) convertedItem);
                             break;
                         case DataType.UShort:
                             convertedItem = ModbusDataTypesConverter.ConvertToUShort(
                                 ComposeToArray(originDataEnumerator, 1), _configurationSettings.RegistersEndian,
                                 _configurationSettings.BytesEndian);
                             displayString = Convert
-                                .ToString((ushort)convertedItem, (int)_configurationSettings.NumberSystem).ToUpper();
+                                .ToString((ushort) convertedItem, (int) _configurationSettings.NumberSystem).ToUpper();
                             break;
                         case DataType.Int:
                             convertedItem = ModbusDataTypesConverter.ConvertToInt(
                                 ComposeToArray(originDataEnumerator, 2), _configurationSettings.RegistersEndian,
                                 _configurationSettings.BytesEndian);
-                            displayString = Convert.ToString((int)convertedItem);
+                            displayString = Convert.ToString((int) convertedItem);
                             break;
                         case DataType.UInt:
                             convertedItem = ModbusDataTypesConverter.ConvertToUInt(
                                 ComposeToArray(originDataEnumerator, 2), _configurationSettings.RegistersEndian,
                                 _configurationSettings.BytesEndian);
                             displayString = Convert
-                                .ToString((uint)convertedItem, (int)_configurationSettings.NumberSystem).ToUpper();
+                                .ToString((uint) convertedItem, (int) _configurationSettings.NumberSystem).ToUpper();
                             break;
                         case DataType.Long:
                             convertedItem = ModbusDataTypesConverter.ConvertToLong(
                                 ComposeToArray(originDataEnumerator, 4), _configurationSettings.RegistersEndian,
                                 _configurationSettings.BytesEndian);
-                            displayString = Convert.ToString((long)convertedItem);
+                            displayString = Convert.ToString((long) convertedItem);
                             break;
                         case DataType.Float:
                             convertedItem = ModbusDataTypesConverter.ConvertToFloat(
@@ -154,7 +150,7 @@ namespace Stormbus.UI.Containers
         public void UpdateData(bool[] data)
         {
             _boolOriginData = data;
-            using var originDataEnumerator = ((IEnumerable<bool>)_boolOriginData).GetEnumerator();
+            using var originDataEnumerator = ((IEnumerable<bool>) _boolOriginData).GetEnumerator();
             foreach (var item in DisplayData)
                 if (originDataEnumerator.MoveNext())
                 {

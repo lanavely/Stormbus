@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using NModbus.Extensions.Functions;
 using Stormbus.UI.Configuration;
-using Stormbus.UI.Containers;
 using Stormbus.UI.Enums;
 
 namespace Stormbus.UI.Converters
 {
     public static class ModbusDataTypesConverter
     {
+        private static void NormalizeByteString(byte[] byteString)
+        {
+            if (!BitConverter.IsLittleEndian)
+                Array.Reverse(byteString);
+        }
+
         #region ConvertFromRegisters
 
         public static float ConvertToFloat(ushort[] input, EndianType registersEndian, EndianType bytesEndian)
@@ -75,7 +76,7 @@ namespace Stormbus.UI.Converters
                 bytes[j + 1] = buffer[1];
                 j += 2;
             }
-            
+
             NormalizeByteString(bytes);
             return bytes;
         }
@@ -117,7 +118,7 @@ namespace Stormbus.UI.Converters
 
             if (settings.RegistersEndian == EndianType.LittleEndian)
                 Array.Reverse(registers);
-            
+
             return registers;
         }
 
@@ -136,11 +137,5 @@ namespace Stormbus.UI.Converters
         }
 
         #endregion
-
-        private static void NormalizeByteString(byte[] byteString)
-        {
-            if (!BitConverter.IsLittleEndian)
-                Array.Reverse(byteString);
-        }
     }
 }

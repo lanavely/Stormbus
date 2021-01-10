@@ -11,33 +11,30 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <converters:DataTypeMenuItemEnabledConverter x:Key="DataTypeEnabledConverter" />
-        <converters:NumberSystemEnabledConverter x:Key="NumberSystemEnabledConverter" />
-        <converters:RegistersEndianVisibilityConverter x:Key="RegistersEndianVisibilityConverter" />
         <converters:EqualsConverter x:Key="EqualsConverter" />
-        <converters:EqualVisibilityConverter x:Key="EqualVisibilityConverter" />
     </UserControl.Resources>
     <StackPanel Background="#f0f0f0"
                 IsEnabled="{Binding ElementName=ThisControl, Path=Function, Converter={StaticResource DataTypeEnabledConverter}}">
         <StackPanel>
-            <RadioButton x:Name="Short" Content="Short" Tag="{x:Static enums:DataType.Short}"
+            <RadioButton Content="Short" Tag="{x:Static enums:DataType.Short}"
                          Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static enums:DataType.Short}, Mode=OneWay}" />
-            <RadioButton x:Name="UShort" Content="UShort" Tag="{x:Static enums:DataType.UShort}"
+            <RadioButton Content="UShort" Tag="{x:Static enums:DataType.UShort}"
                          Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static enums:DataType.UShort}, Mode=OneWay}" />
-            <RadioButton x:Name="Int" Content="Int" Tag="{x:Static enums:DataType.Int}"
+            <RadioButton Content="Int" Tag="{x:Static enums:DataType.Int}"
                          Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static enums:DataType.Int}, Mode=OneWay}" />
-            <RadioButton x:Name="UInt" Content="UInt" Tag="{x:Static enums:DataType.UInt}"
+            <RadioButton Content="UInt" Tag="{x:Static enums:DataType.UInt}"
                          Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static enums:DataType.UInt}, Mode=OneWay}" />
-            <RadioButton x:Name="Long" Content="Long" Tag="{x:Static enums:DataType.Long}"
+            <RadioButton Content="Long" Tag="{x:Static enums:DataType.Long}"
                          Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static enums:DataType.Long}, Mode=OneWay}" />
-            <RadioButton x:Name="Float" Content="Float" Tag="{x:Static enums:DataType.Float}"
+            <RadioButton Content="Float" Tag="{x:Static enums:DataType.Float}"
                          Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static enums:DataType.Float}, Mode=OneWay}" />
-            <RadioButton x:Name="Double" Content="Double" Tag="{x:Static enums:DataType.Double}"
+            <RadioButton Content="Double" Tag="{x:Static enums:DataType.Double}"
                          Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=DataType, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static enums:DataType.Double}, Mode=OneWay}" />
         </StackPanel>
@@ -54,7 +51,7 @@
                          IsChecked="{Binding ElementName=ThisControl, Path=NumberSystem, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static enums:NumberSystem.Hexadecimal}, Mode=OneWay}" />
         </StackPanel>
         <StackPanel>
-            <Separator/>
+            <Separator />
             <RadioButton x:Name="BigEndian" Content="BigEndian" Tag="{x:Static enums:EndianType.BigEndian}"
                          Checked="RadioButton_OnChecked"
                          IsChecked="{Binding ElementName=ThisControl, Path=BytesEndian, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static enums:EndianType.BigEndian}, Mode=OneWay}" />

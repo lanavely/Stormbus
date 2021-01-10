@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using Stormbus.UI.Command.UI;
 using Stormbus.UI.Helper;
@@ -17,15 +14,14 @@ namespace Stormbus.UI
     /// </summary>
     public partial class MainWindow
     {
-        public ViewModel ViewModel;
+        public ViewModel ViewModel; 
 
         public MainWindow()
         {
             ThreadController.SetDispatcher(Dispatcher);
             StartStopReadCommand = new WpfCommandDelegate {ExecuteHandler = StartStopRead};
             InitializeComponent();
-            DataContext = ViewModel ??
-                          (ViewModel = new ViewModel());
+            DataContext = ViewModel ??= new ViewModel();
             Console.SetOut(new StormbusTextWriter(LogTextBox));
         }
 
@@ -72,6 +68,27 @@ namespace Stormbus.UI
         private void DataGridMenu_SendCommandClick(object sender, RoutedEventArgs e)
         {
             OpenCommandWindow();
+        }
+
+        private void LoggingPanelVisibilityToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Width += LogTextBox.Width;
+            MinWidth += LogTextBox.Width;
+        }
+
+        private void LoggingPanelVisibilityToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            MinWidth -= LogTextBox.Width;
+            Width -= LogTextBox.Width;
+        }
+
+        private void ResetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel = new ViewModel();
+            DataContext = ViewModel;
+            Width = 300;
+            MinWidth = 300;
+            UpdateLayout();
         }
     }
 }

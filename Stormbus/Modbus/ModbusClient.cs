@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Ports;
-using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,6 +17,18 @@ namespace Stormbus.UI.Modbus
 {
     public class ModbusClient
     {
+        #region Constructor
+
+        public ModbusClient(ResultData resultData,
+            ConfigurationSettingsModel configurationSettings, WorkingState workingState)
+        {
+            _resultData = resultData;
+            _configurationSettings = configurationSettings;
+            _workingState = workingState;
+        }
+
+        #endregion
+
         #region Private fields
 
         private readonly ResultData _resultData;
@@ -33,22 +42,10 @@ namespace Stormbus.UI.Modbus
 
         #endregion
 
-        #region Constructor
-
-        public ModbusClient(ResultData resultData,
-            ConfigurationSettingsModel configurationSettings, WorkingState workingState)
-        {
-            _resultData = resultData;
-            _configurationSettings = configurationSettings;
-            _workingState = workingState;
-        }
-
-        #endregion
-
         #region CreateMaster
 
         /// <summary>
-        /// Return the modbus muster depending on the settings
+        ///     Return the modbus muster depending on the settings
         /// </summary>
         private IModbusMaster CreateMaster()
         {
@@ -57,20 +54,14 @@ namespace Stormbus.UI.Modbus
             IModbusMaster master = null;
             if (_configurationSettings.ConnectionType.CurrentType == ConnectionType.TcpIp ||
                 _configurationSettings.ConnectionType.CurrentType == ConnectionType.RtuAsciiOverTcpIp)
-            {
                 master = CreateTcpMaster(factory);
-            }
 
             if (_configurationSettings.ConnectionType.CurrentType == ConnectionType.Serial)
-            {
                 master = CreateSerialPortMaster(factory);
-            }
 
             if (_configurationSettings.ConnectionType.CurrentType == ConnectionType.UdpIp ||
                 _configurationSettings.ConnectionType.CurrentType == ConnectionType.RtuAsciiOverUdpIp)
-            {
                 master = CreateUdpMaster(factory);
-            }
 
             return master;
         }
@@ -124,15 +115,9 @@ namespace Stormbus.UI.Modbus
                 StopBits = _configurationSettings.StopBits
             };
             _serialPort.Open();
-            if (_configurationSettings.UseRtu)
-            {
-                master = factory.CreateRtuMaster(new SerialPortAdapter(_serialPort));
-            }
+            if (_configurationSettings.UseRtu) master = factory.CreateRtuMaster(new SerialPortAdapter(_serialPort));
 
-            if (_configurationSettings.UseAscii)
-            {
-                master = factory.CreateAsciiMaster(new SerialPortAdapter(_serialPort));
-            }
+            if (_configurationSettings.UseAscii) master = factory.CreateAsciiMaster(new SerialPortAdapter(_serialPort));
 
             master.Transport.ReadTimeout = _configurationSettings.Timeout;
 
@@ -146,7 +131,7 @@ namespace Stormbus.UI.Modbus
         #region Read
 
         /// <summary>
-        ///     Creates master and starts read asynchronously 
+        ///     Creates master and starts read asynchronously
         /// </summary>
         public async void StartReadAsync()
         {
@@ -156,7 +141,7 @@ namespace Stormbus.UI.Modbus
                 {
                     ResetCancellationToken();
                     var master = CreateMaster();
-                    Read(master);
+                    Read(master); 
                 });
             }
             catch (OperationCanceledException)
@@ -175,7 +160,7 @@ namespace Stormbus.UI.Modbus
                 ReleaseConnection();
             }
         }
-        
+
         /// <summary>
         ///     Stops reading
         /// </summary>
@@ -264,7 +249,6 @@ namespace Stormbus.UI.Modbus
                 await Task.Run(() =>
                 {
                     if (_modbusMaster == null)
-                    {
                         try
                         {
                             _modbusMaster = CreateMaster();
@@ -274,11 +258,8 @@ namespace Stormbus.UI.Modbus
                         {
                             ReleaseConnection();
                         }
-                    }
                     else
-                    {
                         ExecuteByCommand(_modbusMaster, commandData);
-                    }
                 });
             }
             catch (Exception e)
@@ -290,24 +271,20 @@ namespace Stormbus.UI.Modbus
         private void ExecuteByCommand(IModbusMaster master, CommandDataBase commandData)
         {
             if (commandData is SingleCoilCommandData singleCoilCommand)
-            {
-                master.WriteSingleCoil(_configurationSettings.SlaveId, singleCoilCommand.Address, singleCoilCommand.Value);
-            }
+                master.WriteSingleCoil(_configurationSettings.SlaveId, singleCoilCommand.Address,
+                    singleCoilCommand.Value);
 
             if (commandData is SingleRegisterCommandData singleRegisterCommand)
-            {
-                master.WriteSingleRegister(_configurationSettings.SlaveId, singleRegisterCommand.Address, singleRegisterCommand.Value);
-            }
+                master.WriteSingleRegister(_configurationSettings.SlaveId, singleRegisterCommand.Address,
+                    singleRegisterCommand.Value);
 
             if (commandData is MultipleCoilCommandData multipleCoilCommand)
-            {
-                master.WriteMultipleCoils(_configurationSettings.SlaveId, multipleCoilCommand.Address, multipleCoilCommand.Values);
-            }
+                master.WriteMultipleCoils(_configurationSettings.SlaveId, multipleCoilCommand.Address,
+                    multipleCoilCommand.Values);
 
             if (commandData is MultipleRegisterCommandData multipleRegisterCommand)
-            {
-                master.WriteMultipleRegisters(_configurationSettings.SlaveId, multipleRegisterCommand.Address, multipleRegisterCommand.Values);
-            }
+                master.WriteMultipleRegisters(_configurationSettings.SlaveId, multipleRegisterCommand.Address,
+                    multipleRegisterCommand.Values);
         }
 
         #endregion

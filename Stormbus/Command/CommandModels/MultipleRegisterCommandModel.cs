@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Stormbus.UI.Command.CommandData;
 using Stormbus.UI.Configuration;
 using Stormbus.UI.Converters;
@@ -42,10 +41,7 @@ namespace Stormbus.UI.Command.CommandModels
         public override CommandDataBase GetCommandData()
         {
             var registers = new List<ushort>();
-            foreach (var item in Items)
-            {
-                registers.AddRange(ModbusDataTypesConverter.ConvertToRegisters(item, Settings));
-            }
+            foreach (var item in Items) registers.AddRange(ModbusDataTypesConverter.ConvertToRegisters(item, Settings));
 
             if (registers.Count == 1)
                 return new SingleRegisterCommandData
@@ -54,12 +50,12 @@ namespace Stormbus.UI.Command.CommandModels
                     Value = registers[0]
                 };
             if (registers.Count > 1)
-                return  new MultipleRegisterCommandData
+                return new MultipleRegisterCommandData
                 {
                     Address = Address,
                     Values = registers.ToArray()
                 };
-            
+
 
             return null;
         }

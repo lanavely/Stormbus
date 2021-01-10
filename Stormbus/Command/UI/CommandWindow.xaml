@@ -11,7 +11,7 @@
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
         Title="Command">
     <Window.InputBindings>
-        <KeyBinding Key="Escape" Command="Close"/>
+        <KeyBinding Key="Escape" Command="Close" />
     </Window.InputBindings>
     <Window.Resources>
         <Style TargetType="Grid">
@@ -36,8 +36,9 @@
                                TextAlignment="Center" />
                     <TextBlock Text="Value" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" />
                     <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
-                             TextAlignment="Center" Margin="0 3 0 0"/>
-                    <CheckBox Grid.Column="1" Grid.Row="1" IsChecked="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                             TextAlignment="Center" Margin="0 3 0 0" />
+                    <CheckBox Grid.Column="1" Grid.Row="1"
+                              IsChecked="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                               Margin="0 3 0 0" />
                 </Grid>
             </StackPanel>
@@ -82,12 +83,13 @@
                         <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
                                  Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
-                    <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Items}" BorderThickness="0">
+                    <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Items}"
+                              BorderThickness="0">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <CheckBox IsChecked="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
-                                    <TextBlock Text=" "/>
+                                    <TextBlock Text=" " />
                                     <TextBlock Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
                                     <TextBlock Text="Coil " />
                                 </StackPanel>
@@ -95,7 +97,7 @@
                         </ListView.ItemTemplate>
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="Focusable" Value="False"/>
+                                <Setter Property="Focusable" Value="False" />
                             </Style>
                         </ListView.ItemContainerStyle>
                     </ListView>
@@ -121,19 +123,20 @@
                         <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
                                  Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
-                    <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Items}" BorderThickness="0">
+                    <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Items}"
+                              BorderThickness="0">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
                                     <TextBlock Text="  " />
-                                    <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" MinWidth="40"/>
+                                    <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" MinWidth="40" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="Focusable" Value="False"/>
+                                <Setter Property="Focusable" Value="False" />
                             </Style>
                         </ListView.ItemContainerStyle>
                     </ListView>
