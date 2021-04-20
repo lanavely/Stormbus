@@ -6,73 +6,50 @@
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="300"
              FocusManager.IsFocusScope="True">
-    <UserControl.Resources>
-        <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TextBoxBase">
-                        <Border BorderThickness="{TemplateBinding Border.BorderThickness}"
-                                BorderBrush="{TemplateBinding Border.BorderBrush}"
-                                Background="{TemplateBinding Panel.Background}"
-                                Name="border"
-                                SnapsToDevicePixels="True">
-                            <ScrollViewer HorizontalScrollBarVisibility="Hidden"
-                                          VerticalScrollBarVisibility="Hidden"
-                                          Name="PART_ContentHost"
-                                          Focusable="False" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Opacity" TargetName="border" Value="0.56" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
+    <Border BorderThickness="0 0 0 1" BorderBrush="#767676" Margin="0 0 0 -1">
+        <Grid>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
 
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
 
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <TextBox x:Name="FirstSegment" Grid.Column="0" TextAlignment="Center" MaxLength="3" BorderThickness="1,1,0,1"
+            <TextBox x:Name="FirstSegment" Grid.Column="0" TextAlignment="Center" MaxLength="3" BorderThickness="0"
                  VerticalContentAlignment="Center"
                  TextChanged="TextBoxBase_OnTextChanged" PreviewKeyDown="UIElement_OnPreviewKeyDown"
                  DataObject.Pasting="DataObject_OnPasting" />
-        <TextBox Grid.Column="1" Text="." TextAlignment="Center" IsReadOnly="True" Focusable="False"
-                 BorderThickness="0,1,0,1" VerticalContentAlignment="Center"
+            <TextBox Grid.Column="1" Text="." TextAlignment="Center" IsReadOnly="True" Focusable="False"
+                 BorderThickness="0" VerticalContentAlignment="Center"
                  IsReadOnlyCaretVisible="False" />
 
-        <TextBox x:Name="SecondSegment" Grid.Column="2" TextAlignment="Center" MaxLength="3" BorderThickness="0,1,0,1"
+            <TextBox x:Name="SecondSegment" Grid.Column="2" TextAlignment="Center" MaxLength="3" BorderThickness="0"
                  VerticalContentAlignment="Center"
                  TextChanged="TextBoxBase_OnTextChanged" PreviewKeyDown="UIElement_OnPreviewKeyDown"
                  DataObject.Pasting="DataObject_OnPasting" />
-        <TextBox Grid.Column="3" Text="." TextAlignment="Center" IsReadOnly="True" Focusable="False"
-                 BorderThickness="0,1,0,1" VerticalContentAlignment="Center"
+            <TextBox Grid.Column="3" Text="." TextAlignment="Center" IsReadOnly="True" Focusable="False"
+                 BorderThickness="0" VerticalContentAlignment="Center"
                  IsReadOnlyCaretVisible="False" />
 
-        <TextBox x:Name="ThirdSegment" Grid.Column="4" TextAlignment="Center" MaxLength="3" BorderThickness="0,1,0,1"
+            <TextBox x:Name="ThirdSegment" Grid.Column="4" TextAlignment="Center" MaxLength="3" BorderThickness="0"
                  VerticalContentAlignment="Center"
                  TextChanged="TextBoxBase_OnTextChanged" PreviewKeyDown="UIElement_OnPreviewKeyDown"
                  DataObject.Pasting="DataObject_OnPasting" />
-        <TextBox Grid.Column="5" Text="." TextAlignment="Center" IsReadOnly="True" Focusable="False"
-                 BorderThickness="0,1,0,1" VerticalContentAlignment="Center"
+            <TextBox Grid.Column="5" Text="." TextAlignment="Center" IsReadOnly="True" Focusable="False"
+                 BorderThickness="0" VerticalContentAlignment="Center"
                  IsReadOnlyCaretVisible="False" />
 
-        <TextBox x:Name="LastSegment" Grid.Column="6" TextAlignment="Center" MaxLength="3" BorderThickness="0,1,1,1"
+            <TextBox x:Name="LastSegment" Grid.Column="6" TextAlignment="Center" MaxLength="3" BorderThickness="0"
                  VerticalContentAlignment="Center"
                  TextChanged="TextBoxBase_OnTextChanged" PreviewKeyDown="UIElement_OnPreviewKeyDown"
                  DataObject.Pasting="DataObject_OnPasting" />
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>

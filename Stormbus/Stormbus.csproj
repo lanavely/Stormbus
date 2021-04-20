@@ -86,6 +86,7 @@
       REM If you see this in Visual Studio's Error List window, check the Output window's Build tab for the actual error.
       ECHO Creating NuGet package in Post-Build event...
     </PostBuildEvent>
+    <LangVersion>9</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -123,6 +124,8 @@
     <PackageReference Include="CreateNewNuGetPackageFromProjectAfterEachBuild" Version="1.8.16">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="MaterialDesignColors" Version="2.0.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
     <PackageReference Include="NModbus" Version="3.0.62" />
     <PackageReference Include="NModbus.Serial" Version="3.0.62" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.3.1" />

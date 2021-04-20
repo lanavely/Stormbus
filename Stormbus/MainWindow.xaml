@@ -10,7 +10,15 @@
         xmlns:viewmodels="clr-namespace:Stormbus.UI.ViewModels"
         mc:Ignorable="d" x:Name="Window" Closed="MainWindow_OnClosed"
         Title="StormBus" Height="450" Width="300" MinWidth="300"
-        d:DataContext="{viewmodels:ViewModel}">
+        d:DataContext="{viewmodels:ViewModel}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
     <Window.InputBindings>
         <KeyBinding Gesture="F5" Command="{Binding ElementName=Window, Path=StartStopReadCommand}" />
     </Window.InputBindings>
@@ -36,17 +44,14 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="17" />
+            <RowDefinition Height="22" />
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="1" Grid.ColumnSpan="5" Grid.Column="0" Background="{Binding StatusBar.StatusBarColor}">
-            <StackPanel HorizontalAlignment="Right" DockPanel.Dock="Right" Orientation="Horizontal">
-                <Button Content="Reset" Background="{Binding StatusBar.StatusBarColor}"
-                        HorizontalAlignment="Right" Margin="0 1 1 1" Padding="2 -3 2 0" BorderThickness="0" Foreground="#EEE"
-                        Click="ResetButton_OnClick">
-                    
-                </Button>
-                <ToggleButton Content="Log" Background="{Binding Background, RelativeSource={RelativeSource AncestorType=DockPanel}}" 
-                              HorizontalAlignment="Right" Margin="0 1 1 1" Padding="2 -3 2 0" BorderThickness="0" Foreground="#EEE"
+            <StackPanel HorizontalAlignment="Left" DockPanel.Dock="Left" Orientation="Horizontal">
+                <Button Content="Reset" Background="{Binding StatusBar.StatusBarColor}" Padding="2 -1 2 0" BorderThickness="0" Foreground="#EEE"
+                        Click="ResetButton_OnClick" Height="15"/>
+                <ToggleButton Content="Log" Background="{Binding Background, RelativeSource={RelativeSource AncestorType={x:Type DockPanel}}}" 
+                              HorizontalAlignment="Right" Margin="5 1 1 1" Padding="2 2 2 0" BorderThickness="0" Foreground="Black"
                               IsChecked="{Binding ConfigurationSettings.LoggingPanelSettings.IsLoggingPanelVisible}"
                               Checked="LoggingPanelVisibilityToggleButton_OnChecked"
                               Unchecked="LoggingPanelVisibilityToggleButton_OnUnchecked"/>
@@ -63,20 +68,18 @@
                   CanUserSortColumns="False"
                   MouseDoubleClick="DataGrid_OnPreviewMouseDoubleClick"
                   CellStyle="{StaticResource DataGridCellStyle}"
-                  Background="White">
+                  Background="White"
+                  BorderThickness="0 1 0 0">
             <DataGrid.Resources>
                 <Style x:Key="CellStyle" TargetType="DataGridCell" />
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Address"
                                     Binding="{Binding Address}"
-                                    IsReadOnly="True"
-                                    Width="*"
-                                    MinWidth="60" />
+                                    IsReadOnly="True"/>
                 <DataGridTextColumn Header="Value"
                                     Binding="{Binding DisplayValue}"
                                     Width="2*"
-                                    MinWidth="120"
                                     IsReadOnly="True" />
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
@@ -139,9 +142,9 @@
                     <Setter Property="Padding" Value="3" />
                 </Style>
             </TabControl.Resources>
-            <TabItem Header="General">
+            <TabItem Header="General" Padding="4" BorderThickness="0">
                 <StackPanel
-                    Margin="0 0 4 0" Width="80">
+                    Margin="2 2 4 2" Width="80">
                     <StackPanel.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="Margin" Value="0 5 0 0" />
@@ -167,8 +170,13 @@
                     <TextBox Text="{Binding ScanRate}" />
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Network">
-                <StackPanel>
+            <TabItem Header="Network" Padding="4">
+                <StackPanel Margin="2">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="0 5 0 0" />
+                        </Style>
+                    </StackPanel.Resources>
                     <TextBlock Text="Connection:" />
                     <ComboBox ItemsSource="{Binding ConnectionType.SupportedTypes}"
                               SelectedValue="{Binding ConnectionType.CurrentType}" />
@@ -185,16 +193,16 @@
                     <StackPanel
                         Visibility="{Binding ConnectionType.CurrentType, Converter={StaticResource IpAddressVisibilityConverter}}">
                         <TextBlock Text="IP Address" />
-                        <customcontrols:IpTextBox Address="{Binding IpAddress}" />
-                        <TextBlock Text="Port" />
+                        <customcontrols:IpTextBox Address="{Binding IpAddress}"/>
+                        <TextBlock Text="Port:" />
                         <TextBox Text="{Binding IpPort}" />
                     </StackPanel>
                     <StackPanel
                         Visibility="{Binding ConnectionType.CurrentType, Converter={StaticResource SerialPortSettingsVisibilityConverter}}">
-                        <TextBlock Text="Port" />
+                        <TextBlock Text="Port:" />
                         <ComboBox ItemsSource="{Binding SerialPortNames}"
                                   SelectedValue="{Binding SerialPort}" />
-                        <TextBlock Text="Baud Rate" />
+                        <TextBlock Text="Baud Rate:" />
                         <ComboBox ItemsSource="{Binding BaudRate.SupportedBaudRates}"
                                   SelectedValue="{Binding BaudRate.Current}">
                             <ComboBox.ItemTemplate>
@@ -206,7 +214,7 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <TextBlock Text="Data Bits" />
+                        <TextBlock Text="Data Bits:" />
                         <ComboBox ItemsSource="{Binding SupportedDataBits}"
                                   SelectedValue="{Binding DataBits}">
                             <ComboBox.ItemTemplate>
@@ -218,10 +226,10 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <TextBlock Text="Parity" />
+                        <TextBlock Text="Parity:" />
                         <ComboBox ItemsSource="{Binding SupportedParities}"
                                   SelectedValue="{Binding Parity}" />
-                        <TextBlock Text="Stop Bits" />
+                        <TextBlock Text="Stop Bits:" />
                         <ComboBox ItemsSource="{Binding SupportedStopBits}"
                                   SelectedValue="{Binding StopBits}" />
                     </StackPanel>
