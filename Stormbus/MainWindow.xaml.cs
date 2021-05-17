@@ -19,7 +19,7 @@ namespace Stormbus.UI
         public MainWindow()
         {
             ThreadController.SetDispatcher(Dispatcher);
-            StartStopReadCommand = new WpfCommandDelegate {ExecuteHandler = StartStopRead};
+            StartStopReadCommand = new CommandDelegate {ExecuteHandler = StartStopRead};
             InitializeComponent();
             DataContext = ViewModel ??= new ViewModel();
             Console.SetOut(new StormbusTextWriter(LogTextBox));
