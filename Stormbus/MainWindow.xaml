@@ -76,11 +76,13 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Address"
                                     Binding="{Binding Address}"
-                                    IsReadOnly="True"/>
+                                    IsReadOnly="True"
+                                    FontSize="14"/>
                 <DataGridTextColumn Header="Value"
                                     Binding="{Binding DisplayValue}"
                                     Width="2*"
-                                    IsReadOnly="True" />
+                                    IsReadOnly="True"
+                                    FontSize="14"/>
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
@@ -88,7 +90,7 @@
                         <MenuItem OverridesDefaultStyle="True">
                             <MenuItem.Template>
                                 <ControlTemplate>
-                                    <customcontrols:DataTypeMenu Background="#f8f8f8" Margin="0 0 10 0"
+                                    <customcontrols:DataTypeMenu Margin="0 0 10 0"
                                                                  Function="{Binding ConfigurationSettings.Function, Mode=TwoWay}"
                                                                  DataType="{Binding ConfigurationSettings.DataType, Mode=TwoWay}"
                                                                  NumberSystem="{Binding ConfigurationSettings.NumberSystem, Mode=TwoWay}"

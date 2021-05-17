@@ -9,7 +9,13 @@
         xmlns:customcontrols="clr-namespace:Stormbus.UI.CustomUserControls"
         mc:Ignorable="d" x:Name="ThisWindow" WindowStartupLocation="CenterOwner"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize"
-        Title="Command">
+        Title="Command"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}">
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="Close" />
     </Window.InputBindings>
@@ -65,83 +71,83 @@
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type commandModels:MultipleCoilCommandModel}">
-            <StackPanel Orientation="Horizontal">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" MinWidth="63" />
-                        <ColumnDefinition Width="Auto" MinWidth="63" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <StackPanel>
-                        <TextBlock Text="Address" Grid.Column="0" Grid.Row="0" TextAlignment="Center" />
-                        <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth="63" />
+                    <ColumnDefinition Width="Auto" MinWidth="63" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Address" Grid.Column="0" Grid.Row="0" TextAlignment="Center" />
+                    <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
                                  Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Text="Count" Grid.Column="0" Grid.Row="0" Margin="0 3 0 0" TextAlignment="Center" />
-                        <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
+                    <TextBlock Text="Count" Grid.Column="0" Grid.Row="0" Margin="0 3 0 0" TextAlignment="Center" />
+                    <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
                                  Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Items}"
+                </StackPanel>
+                <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Items}"
                               BorderThickness="0">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <CheckBox IsChecked="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
-                                    <TextBlock Text=" " />
-                                    <TextBlock Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
-                                    <TextBlock Text="Coil " />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="Focusable" Value="False" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
-                </Grid>
-            </StackPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Text=" " />
+                                <TextBlock Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Focusable" Value="False" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </Grid>
         </DataTemplate>
         <DataTemplate DataType="{x:Type commandModels:MultipleRegisterCommandModel}">
-            <StackPanel Orientation="Horizontal">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" MinWidth="63" />
-                        <ColumnDefinition Width="Auto" MinWidth="63" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <StackPanel>
-                        <TextBlock Text="Address" Grid.Column="0" Grid.Row="0" TextAlignment="Center" />
-                        <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
-                                 Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Text="Count" Grid.Column="0" Grid.Row="0" Margin="0 3 0 0" TextAlignment="Center" />
-                        <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
-                                 Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Items}"
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MinWidth="63" />
+                    <ColumnDefinition Width="Auto" MinWidth="63" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Address" Grid.Column="0" Grid.Row="0" TextAlignment="Center" />
+                    <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
+                                 Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" d:Text="0"/>
+                    <TextBlock Text="Count" Grid.Column="0" Grid.Row="0" Margin="0 3 0 0" TextAlignment="Center" />
+                    <TextBox Grid.Column="0" Grid.Row="1" Margin="0 3 0 0" TextAlignment="Center"
+                                 Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" d:Text="5"/>
+                </StackPanel>
+                <ListView Grid.Column="1" Grid.Row="0" Margin="10 3 0 3" ItemsSource="{Binding Items}"
                               BorderThickness="0">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
-                                    <TextBlock Text="  " />
-                                    <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" MinWidth="40" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="Focusable" Value="False" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
-                </Grid>
-            </StackPanel>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Focusable" Value="False" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="2" BorderBrush="#000" BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox TextAlignment="Center" IsReadOnly="True" Grid.Column="0" Text="{Binding Address}" Foreground="White" Background="{StaticResource PrimaryHueMidBrush}"/>
+                                    <TextBox Grid.Column="1" Text="{Binding Value}"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
         </DataTemplate>
     </Window.Resources>
     <Grid Margin="5 0 5 10">
@@ -151,7 +157,7 @@
         </Grid.ColumnDefinitions>
         <ContentControl Grid.Column="0" Content="{Binding ElementName=ThisWindow, Path=CommandModel}" />
         <StackPanel Grid.Column="1">
-            <Button Click="SendButton_OnClick" Content="Send" Margin="10,17.3,0,0" IsDefault="True" MinWidth="80" />
+            <Button Click="SendButton_OnClick" Content="Send" Margin="10,10,0,0" IsDefault="True" MinWidth="80" />
         </StackPanel>
     </Grid>
 </Window>

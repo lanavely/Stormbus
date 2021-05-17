@@ -13,8 +13,7 @@
         <converters:DataTypeMenuItemEnabledConverter x:Key="DataTypeEnabledConverter" />
         <converters:EqualsConverter x:Key="EqualsConverter" />
     </UserControl.Resources>
-    <StackPanel Background="#f0f0f0"
-                IsEnabled="{Binding ElementName=ThisControl, Path=Function, Converter={StaticResource DataTypeEnabledConverter}}">
+    <StackPanel IsEnabled="{Binding ElementName=ThisControl, Path=Function, Converter={StaticResource DataTypeEnabledConverter}}">
         <StackPanel>
             <RadioButton Content="Short" Tag="{x:Static enums:DataType.Short}"
                          Checked="RadioButton_OnChecked"
